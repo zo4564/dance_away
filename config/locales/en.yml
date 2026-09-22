@@ -1,0 +1,274 @@
+en:
+  app:
+    name: "Dance Away"
+    description: "Dance class booking system"
+
+  navigation:
+    home: "Home"
+    lessons: "Lessons"
+    dashboard: "Dashboard"
+    account: "My account"
+    sign_in: "Sign in"
+    sign_up: "Sign up"
+    sign_out: "Sign out"
+
+  home:
+    index:
+      title: "Dance Away"
+      subtitle: "Dance class booking system"
+      welcome: "Welcome, %{name}!"
+      account_edit: "Edit account"
+      browse_lessons: "Browse lessons"
+      sign_in_prompt: "Sign in or create an account to book lessons."
+      sign_in: "Sign in"
+      sign_up: "Sign up"
+
+  lessons:
+    index:
+      title: "Dance lessons"
+      empty: "There are no scheduled lessons."
+      style: "Style"
+      teacher: "Teacher"
+      date: "Date"
+      places: "Places"
+      available_places: "available"
+      details: "Details"
+
+    show:
+      style: "Style"
+      description: "Description"
+      teacher: "Teacher"
+      date: "Date"
+      places: "Places"
+      available_places: "Available places"
+      booked: "%{booked} / %{capacity}"
+      book: "Book a place"
+      booked_message: "You are already booked for this lesson."
+      no_places: "No places available."
+      sign_in_to_book: "Sign in to book a place"
+      back: "Back to lessons"
+
+  bookings:
+    create:
+      success: "Your place has been booked."
+      full: "There are no places available."
+      already_booked: "You are already booked for this lesson."
+
+  errors:
+    messages:
+      booking_conflict: "You already have a booking for a lesson at this time."
+      teacher_conflict: "The teacher is already assigned to a lesson at this time."
+
+  helpers:
+    submit:
+      create: "Create"
+      update: "Save changes"
+
+  date:
+    formats:
+      default: "%d.%m.%Y"
+      short: "%d.%m"
+      long: "%d.%m.%Y"
+
+  time:
+    formats:
+      default: "%d.%m.%Y, %H:%M"
+      short: "%d.%m, %H:%M"
+      long: "%d.%m.%Y, %H:%M"
+
+  number:
+    format:
+      separator: "."
+      delimiter: ","
+      precision: 3
+      significant: false
+      strip_insignificant_zeros: true
+
+  activerecord:
+    models:
+      user:
+        one: "User"
+        other: "Users"
+
+      booking:
+        one: "Booking"
+        other: "Bookings"
+
+      lesson:
+        one: "Lesson"
+        other: "Lessons"
+
+      dance_class:
+        one: "Class"
+        other: "Classes"
+
+      dance_style:
+        one: "Dance style"
+        other: "Dance styles"
+
+    attributes:
+      user:
+        email: "Email"
+        password: "Password"
+        password_confirmation: "Password confirmation"
+        current_password: "Current password"
+        first_name: "First name"
+        last_name: "Last name"
+        role: "Role"
+        remember_me: "Remember me"
+
+      lesson:
+        dance_class: "Class"
+        teacher: "Teacher"
+        starts_at: "Start time"
+        capacity: "Capacity"
+
+      dance_class:
+        name: "Name"
+        description: "Description"
+        dance_style: "Dance style"
+
+      dance_style:
+        name: "Name"
+
+      booking:
+        student: "Student"
+        lesson: "Lesson"
+
+    errors:
+      models:
+        user:
+          attributes:
+            first_name:
+              blank: "can't be blank"
+
+            last_name:
+              blank: "can't be blank"
+
+            role:
+              blank: "must be selected"
+              inclusion: "is not a valid value"
+
+        booking:
+          attributes:
+            lesson_id:
+              taken: "has already been booked by this user"
+
+  devise:
+    confirmations:
+      new:
+        title: "Resend confirmation instructions"
+        submit: "Resend confirmation instructions"
+
+      confirmed: "Your email address has been successfully confirmed."
+      send_instructions: "You will receive an email with instructions for how to confirm your email address in a few minutes."
+      send_paranoid_instructions: "If your email address exists in our database, you will receive an email with instructions for how to confirm your email address."
+
+    failure:
+      already_authenticated: "You are already signed in."
+      inactive: "Your account is not activated yet."
+      invalid: "Invalid %{authentication_keys} or password."
+      locked: "Your account is locked."
+      last_attempt: "You have one more attempt before your account is locked."
+      not_found_in_database: "Invalid %{authentication_keys} or password."
+      timeout: "Your session expired. Please sign in again to continue."
+      unauthenticated: "You need to sign in or sign up before continuing."
+      unconfirmed: "You have to confirm your email address before continuing."
+
+    mailer:
+      confirmation_instructions:
+        subject: "Confirmation instructions"
+
+      reset_password_instructions:
+        subject: "Reset password instructions"
+
+      unlock_instructions:
+        subject: "Unlock instructions"
+
+      email_changed:
+        subject: "Email address changed"
+
+      password_change:
+        subject: "Password changed"
+
+    omniauth_callbacks:
+      failure: "Could not authenticate you from %{kind} because \"%{reason}\"."
+      success: "Successfully authenticated from %{kind} account."
+
+    passwords:
+      new:
+        title: "Forgot your password?"
+        submit: "Send reset password instructions"
+
+      edit:
+        title: "Change your password"
+        new_password: "New password"
+        new_password_confirmation: "Confirm new password"
+        submit: "Change my password"
+
+      no_token: "You can't access this page without coming from a password reset email."
+      send_instructions: "You will receive an email with instructions on how to reset your password in a few minutes."
+      send_paranoid_instructions: "If your email address exists in our database, you will receive a password recovery link at your email address in a few minutes."
+      updated: "Your password has been changed successfully. You are now signed in."
+      updated_not_active: "Your password has been changed successfully."
+
+    registrations:
+      new:
+        title: "Create an account"
+        submit: "Sign up"
+
+      edit:
+        title: "Edit account"
+        submit: "Save changes"
+        cancel_account: "Cancel my account"
+        cancel_account_confirmation: "Are you sure you want to delete your account?"
+        cancel_account_button: "Delete my account"
+        unhappy: "Unhappy with the service?"
+
+      destroyed: "Your account has been successfully cancelled."
+      signed_up: "Welcome! You have signed up successfully."
+      signed_up_but_inactive: "You have signed up successfully. However, your account is not yet activated."
+      signed_up_but_locked: "You have signed up successfully. However, your account is locked."
+      signed_up_but_unconfirmed: "A confirmation link has been sent to your email address."
+      update_needs_confirmation: "You updated your account successfully, but we need to verify your new email address."
+      updated: "Your account has been updated successfully."
+      updated_but_not_signed_in: "Your account has been updated successfully, but you need to sign in again."
+
+    sessions:
+      new:
+        title: "Sign in"
+        submit: "Sign in"
+
+      signed_in: "Signed in successfully."
+      signed_out: "Signed out successfully."
+      already_signed_out: "Signed out successfully."
+
+    shared:
+      links:
+        sign_in: "Sign in"
+        sign_up: "Sign up"
+        forgot_password: "Forgot your password?"
+        confirmation_instructions: "Didn't receive confirmation instructions?"
+        unlock_instructions: "Didn't receive unlock instructions?"
+        omniauth: "Sign in with %{provider}"
+
+    unlocks:
+      new:
+        title: "Unlock your account"
+        submit: "Send unlock instructions"
+
+      send_instructions: "You will receive an email with instructions for how to unlock your account in a few minutes."
+      send_paranoid_instructions: "If your account exists, you will receive an email with instructions for how to unlock it."
+      unlocked: "Your account has been unlocked successfully. Please sign in to continue."
+
+    errors:
+      messages:
+        already_confirmed: "was already confirmed"
+        confirmation_period_expired: "needs to be confirmed within %{period}"
+        expired: "has expired"
+        not_found: "not found"
+        not_locked: "was not locked"
+
+        not_saved:
+          one: "1 error prohibited this %{resource} from being saved:"
+          other: "%{count} errors prohibited this %{resource} from being saved:"

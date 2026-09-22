@@ -1,0 +1,276 @@
+pl:
+  app:
+    name: "Dance Away"
+    description: "System rezerwacji zajęć tanecznych"
+
+  navigation:
+    home: "Strona główna"
+    lessons: "Zajęcia"
+    dashboard: "Panel"
+    account: "Moje konto"
+    sign_in: "Zaloguj się"
+    sign_up: "Zarejestruj się"
+    sign_out: "Wyloguj się"
+
+  home:
+    index:
+      title: "Dance Away"
+      subtitle: "System rezerwacji zajęć tanecznych"
+      welcome: "Witaj, %{name}!"
+      account_edit: "Edytuj konto"
+      browse_lessons: "Zobacz zajęcia"
+      sign_in_prompt: "Zaloguj się lub utwórz konto, aby rezerwować zajęcia."
+      sign_in: "Zaloguj się"
+      sign_up: "Zarejestruj się"
+
+  lessons:
+    index:
+      title: "Zajęcia taneczne"
+      empty: "Brak zaplanowanych zajęć."
+      style: "Styl"
+      teacher: "Nauczyciel"
+      date: "Termin"
+      places: "Miejsca"
+      available_places: "wolnych"
+      details: "Szczegóły"
+
+    show:
+      style: "Styl"
+      description: "Opis"
+      teacher: "Nauczyciel"
+      date: "Termin"
+      places: "Miejsca"
+      available_places: "Wolne miejsca"
+      booked: "%{booked} / %{capacity}"
+      book: "Zarezerwuj miejsce"
+      booked_message: "Masz już rezerwację na te zajęcia."
+      no_places: "Brak wolnych miejsc."
+      sign_in_to_book: "Zaloguj się, aby zarezerwować miejsce"
+      back: "Wróć do listy zajęć"
+
+  bookings:
+    create:
+      success: "Zarezerwowano miejsce na zajęcia."
+      full: "Brak wolnych miejsc."
+      already_booked: "Masz już rezerwację na te zajęcia."
+
+  errors:
+    messages:
+      booking_conflict: "Masz już rezerwację na zajęcia odbywające się w tym czasie."
+      teacher_conflict: "Nauczyciel jest już przypisany do zajęć odbywających się w tym czasie."
+
+  helpers:
+    submit:
+      create: "Utwórz"
+      update: "Zapisz zmiany"
+
+  date:
+    formats:
+      default: "%d.%m.%Y"
+      short: "%d.%m"
+      long: "%d.%m.%Y"
+
+  time:
+    formats:
+      default: "%d.%m.%Y, %H:%M"
+      short: "%d.%m, %H:%M"
+      long: "%d.%m.%Y, %H:%M"
+
+  number:
+    format:
+      separator: ","
+      delimiter: " "
+      precision: 3
+      significant: false
+      strip_insignificant_zeros: true
+
+  activerecord:
+    models:
+      user:
+        one: "Użytkownik"
+        other: "Użytkownicy"
+
+      booking:
+        one: "Rezerwacja"
+        other: "Rezerwacje"
+
+      lesson:
+        one: "Lekcja"
+        other: "Lekcje"
+
+      dance_class:
+        one: "Zajęcia"
+        other: "Zajęcia"
+
+      dance_style:
+        one: "Styl tańca"
+        other: "Style tańca"
+
+    attributes:
+      user:
+        email: "Adres e-mail"
+        password: "Hasło"
+        password_confirmation: "Potwierdzenie hasła"
+        current_password: "Aktualne hasło"
+        first_name: "Imię"
+        last_name: "Nazwisko"
+        role: "Rola"
+        remember_me: "Zapamiętaj mnie"
+
+      lesson:
+        dance_class: "Zajęcia"
+        teacher: "Nauczyciel"
+        starts_at: "Data rozpoczęcia"
+        capacity: "Liczba miejsc"
+
+      dance_class:
+        name: "Nazwa"
+        description: "Opis"
+        dance_style: "Styl tańca"
+
+      dance_style:
+        name: "Nazwa"
+
+      booking:
+        student: "Uczestnik"
+        lesson: "Lekcja"
+
+    errors:
+      models:
+        user:
+          attributes:
+            first_name:
+              blank: "nie może być puste"
+
+            last_name:
+              blank: "nie może być puste"
+
+            role:
+              blank: "musi zostać wybrana"
+              inclusion: "zawiera nieprawidłową wartość"
+
+        booking:
+          attributes:
+            lesson_id:
+              taken: "jest już zarezerwowane przez tego użytkownika"
+
+  devise:
+    confirmations:
+      new:
+        title: "Wyślij ponownie instrukcję potwierdzenia"
+        submit: "Wyślij instrukcję potwierdzenia"
+
+      confirmed: "Twój adres e-mail został pomyślnie potwierdzony."
+      send_instructions: "Za chwilę otrzymasz wiadomość z instrukcjami dotyczącymi potwierdzenia adresu e-mail."
+      send_paranoid_instructions: "Jeśli podany adres e-mail znajduje się w naszej bazie, otrzymasz wiadomość z instrukcjami dotyczącymi potwierdzenia adresu e-mail."
+
+    failure:
+      already_authenticated: "Jesteś już zalogowany."
+      inactive: "Twoje konto nie zostało jeszcze aktywowane."
+      invalid: "Nieprawidłowy %{authentication_keys} lub hasło."
+      locked: "Twoje konto zostało zablokowane."
+      last_attempt: "Pozostała Ci jeszcze jedna próba przed zablokowaniem konta."
+      not_found_in_database: "Nieprawidłowy %{authentication_keys} lub hasło."
+      timeout: "Twoja sesja wygasła. Zaloguj się ponownie, aby kontynuować."
+      unauthenticated: "Musisz się zalogować lub zarejestrować, aby kontynuować."
+      unconfirmed: "Musisz potwierdzić swój adres e-mail przed kontynuowaniem."
+
+    mailer:
+      confirmation_instructions:
+        subject: "Instrukcja potwierdzenia konta"
+
+      reset_password_instructions:
+        subject: "Instrukcja resetowania hasła"
+
+      unlock_instructions:
+        subject: "Instrukcja odblokowania konta"
+
+      email_changed:
+        subject: "Adres e-mail został zmieniony"
+
+      password_change:
+        subject: "Hasło zostało zmienione"
+
+    omniauth_callbacks:
+      failure: "Nie udało się uwierzytelnić za pomocą %{kind}, ponieważ: %{reason}."
+      success: "Pomyślnie uwierzytelniono za pomocą konta %{kind}."
+
+    passwords:
+      new:
+        title: "Resetowanie hasła"
+        submit: "Wyślij instrukcję resetowania hasła"
+
+      edit:
+        title: "Zmień hasło"
+        new_password: "Nowe hasło"
+        new_password_confirmation: "Potwierdzenie nowego hasła"
+        submit: "Zmień hasło"
+
+      no_token: "Nie możesz uzyskać dostępu do tej strony bez użycia linku z wiadomości dotyczącej resetowania hasła."
+      send_instructions: "Za chwilę otrzymasz wiadomość z instrukcjami dotyczącymi resetowania hasła."
+      send_paranoid_instructions: "Jeśli podany adres e-mail znajduje się w naszej bazie, otrzymasz wiadomość z instrukcjami dotyczącymi resetowania hasła."
+      updated: "Twoje hasło zostało zmienione. Zostałeś ponownie zalogowany."
+      updated_not_active: "Twoje hasło zostało zmienione."
+
+    registrations:
+      new:
+        title: "Utwórz konto"
+        submit: "Zarejestruj się"
+
+      edit:
+        title: "Edytuj konto"
+        submit: "Zapisz zmiany"
+        cancel_account: "Usuń konto"
+        cancel_account_confirmation: "Czy na pewno chcesz usunąć swoje konto?"
+        cancel_account_button: "Usuń moje konto"
+        unhappy: "Niezadowolony z usługi?"
+
+      destroyed: "Twoje konto zostało usunięte."
+      signed_up: "Witaj! Rejestracja zakończyła się pomyślnie."
+      signed_up_but_inactive: "Rejestracja zakończyła się pomyślnie, ale Twoje konto nie jest jeszcze aktywne."
+      signed_up_but_locked: "Rejestracja zakończyła się pomyślnie, ale Twoje konto jest zablokowane."
+      signed_up_but_unconfirmed: "Na Twój adres e-mail została wysłana wiadomość z linkiem potwierdzającym."
+      update_needs_confirmation: "Dane konta zostały zaktualizowane. Musisz jeszcze potwierdzić nowy adres e-mail."
+      updated: "Twoje konto zostało pomyślnie zaktualizowane."
+      updated_but_not_signed_in: "Twoje konto zostało zaktualizowane, ale musisz zalogować się ponownie."
+
+    sessions:
+      new:
+        title: "Zaloguj się"
+        submit: "Zaloguj się"
+
+      signed_in: "Zalogowano pomyślnie."
+      signed_out: "Wylogowano pomyślnie."
+      already_signed_out: "Wylogowano pomyślnie."
+
+    shared:
+      links:
+        sign_in: "Zaloguj się"
+        sign_up: "Zarejestruj się"
+        forgot_password: "Nie pamiętasz hasła?"
+        confirmation_instructions: "Nie otrzymałeś instrukcji potwierdzenia?"
+        unlock_instructions: "Nie otrzymałeś instrukcji odblokowania?"
+        omniauth: "Zaloguj się przez %{provider}"
+
+    unlocks:
+      new:
+        title: "Odblokuj konto"
+        submit: "Wyślij instrukcję odblokowania"
+
+      send_instructions: "Za chwilę otrzymasz wiadomość z instrukcjami dotyczącymi odblokowania konta."
+      send_paranoid_instructions: "Jeśli Twoje konto istnieje, otrzymasz wiadomość z instrukcjami dotyczącymi jego odblokowania."
+      unlocked: "Twoje konto zostało odblokowane. Zaloguj się, aby kontynuować."
+
+    errors:
+      messages:
+        already_confirmed: "został już potwierdzony"
+        confirmation_period_expired: "musi zostać potwierdzony w ciągu %{period}"
+        expired: "wygasł"
+        not_found: "nie znaleziono"
+        not_locked: "nie jest zablokowany"
+
+        not_saved:
+          one: "Nie udało się zapisać %{resource}: 1 błąd:"
+          few: "Nie udało się zapisać %{resource}: %{count} błędy:"
+          many: "Nie udało się zapisać %{resource}: %{count} błędów:"
+          other: "Nie udało się zapisać %{resource}: %{count} błędów:"
