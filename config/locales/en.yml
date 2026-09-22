@@ -34,6 +34,23 @@ en:
       available_places: "available"
       details: "Details"
 
+    lessons:
+      show:
+        style: "Style"
+        description: "Description"
+        teacher: "Teacher"
+        date: "Date"
+        places: "Places"
+        available_places: "Available places"
+        booked: "%{booked} / %{capacity}"
+        book: "Book a place"
+        booked_message: "You are already booked for this lesson."
+        cancel_booking: "Cancel booking"
+        cancel_booking_confirmation: "Are you sure you want to cancel this booking?"
+        no_places: "No places available."
+        sign_in_to_book: "Sign in to book a place"
+        back: "Back to lessons"
+
     show:
       style: "Style"
       description: "Description"
@@ -50,9 +67,13 @@ en:
 
   bookings:
     create:
-      success: "Your place has been booked."
-      full: "There are no places available."
-      already_booked: "You are already booked for this lesson."
+      success: "Zarezerwowano miejsce na zajęcia."
+      full: "Brak wolnych miejsc."
+      already_booked: "Masz już rezerwację na te zajęcia."
+
+    destroy:
+      success: "Rezerwacja została anulowana."
+      not_found: "Nie znaleziono Twojej rezerwacji."
 
   errors:
     messages:
@@ -75,6 +96,7 @@ en:
       default: "%d.%m.%Y, %H:%M"
       short: "%d.%m, %H:%M"
       long: "%d.%m.%Y, %H:%M"
+      hour: "%H:%M"
 
   number:
     format:

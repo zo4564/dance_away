@@ -8,12 +8,23 @@
   <% if @lessons.any? %>
     <div class="row g-4">
       <% @lessons.each do |lesson| %>
+        <% dance_style = lesson.dance_class.dance_style %>
+
         <div class="col-md-6 col-lg-4">
-          <div class="card h-100 shadow-sm">
+          <div
+            class="card h-100 shadow-sm"
+            style="border-left: 5px solid <%= dance_style.color %>;"
+          >
             <div class="card-body d-flex flex-column">
               <div class="mb-3">
-                <span class="badge text-bg-light">
-                  <%= lesson.dance_class.dance_style.name %>
+                <span
+                  class="badge"
+                  style="
+                  background-color: <%= dance_style.color %>;
+                    color: #fff;
+                  "
+                >
+                  <%= dance_style.name %>
                 </span>
               </div>
 
@@ -39,6 +50,8 @@
 
                 <dd>
                   <%= l(lesson.starts_at, format: :long) %>
+                  -
+                  <%= l(lesson.ends_at, format: :hour) %>
                 </dd>
 
                 <dt class="small text-body-secondary">

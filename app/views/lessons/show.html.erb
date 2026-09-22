@@ -1,113 +1,131 @@
-<div class="container py-5">
+<% dance_style = @lesson.dance_class.dance_style %>
+
+<div class="container py-4">
   <div class="row justify-content-center">
     <div class="col-lg-8">
-      <div class="mb-4">
-        <%= link_to "← #{t(".back")}",
-                    lessons_path,
-                    class: "text-decoration-none" %>
-      </div>
-
-      <div class="card shadow-sm">
-        <div class="card-body p-4 p-lg-5">
-          <div class="mb-4">
-            <span class="badge text-bg-light mb-2">
-              <%= @lesson.dance_class.dance_style.name %>
+      <div
+        class="card shadow-sm"
+        style="border-top: 5px solid <%= dance_style.color %>;"
+      >
+        <div class="card-body">
+          <div class="mb-3">
+            <span
+              class="badge"
+              style="
+              background-color: <%= dance_style.color %>;
+                color: #fff;
+              "
+            >
+              <%= dance_style.name %>
             </span>
-
-            <h1 class="h2 mb-0">
-              <%= @lesson.dance_class.name %>
-            </h1>
           </div>
 
-          <% if @lesson.dance_class.description.present? %>
-            <div class="mb-4">
-              <h2 class="h6 text-uppercase text-body-secondary">
-                <%= t(".description") %>
-              </h2>
+          <h1 class="card-title mb-4">
+            <%= @lesson.dance_class.name %>
+          </h1>
 
-              <p class="mb-0">
-                <%= @lesson.dance_class.description %>
-              </p>
-            </div>
-          <% end %>
+          <dl class="row">
+            <dt class="col-sm-4">
+              <%= t("lessons.show.style") %>
+            </dt>
 
-          <div class="row g-4 mb-4">
-            <div class="col-md-6">
-              <div class="border rounded p-3 h-100">
-                <div class="small text-body-secondary mb-1">
-                  <%= t(".teacher") %>
-                </div>
+            <dd class="col-sm-8">
+              <span
+                class="badge"
+                style="
+                background-color: <%= dance_style.color %>;
+                  color: #fff;
+                "
+              >
+                <%= dance_style.name %>
+              </span>
+            </dd>
 
-                <div class="fw-semibold">
-                  <%= @lesson.teacher.first_name %>
-                  <%= @lesson.teacher.last_name %>
-                </div>
-              </div>
-            </div>
+            <dt class="col-sm-4">
+              <%= t("lessons.show.description") %>
+            </dt>
 
-            <div class="col-md-6">
-              <div class="border rounded p-3 h-100">
-                <div class="small text-body-secondary mb-1">
-                  <%= t(".date") %>
-                </div>
+            <dd class="col-sm-8">
+              <%= @lesson.dance_class.description %>
+            </dd>
 
-                <div class="fw-semibold">
-                  <%= l(@lesson.starts_at, format: :long) %>
-                </div>
-              </div>
-            </div>
+            <dt class="col-sm-4">
+              <%= t("lessons.show.teacher") %>
+            </dt>
 
-            <div class="col-md-6">
-              <div class="border rounded p-3 h-100">
-                <div class="small text-body-secondary mb-1">
-                  <%= t(".places") %>
-                </div>
+            <dd class="col-sm-8">
+              <%= @lesson.teacher.first_name %>
+              <%= @lesson.teacher.last_name %>
+            </dd>
 
-                <div class="fw-semibold">
-                  <%= t(".booked",
-                        booked: @lesson.booked_places,
-                        capacity: @lesson.capacity) %>
-                </div>
-              </div>
-            </div>
+            <dt class="col-sm-4">
+              <%= t("lessons.show.date") %>
+            </dt>
 
-            <div class="col-md-6">
-              <div class="border rounded p-3 h-100">
-                <div class="small text-body-secondary mb-1">
-                  <%= t(".available_places") %>
-                </div>
+            <dd class="col-sm-8">
+              <%= l(@lesson.starts_at, format: :long) %>
+              -
+              <%= @lesson.ends_at.strftime("%H:%M") %>
+            </dd>
 
-                <div class="fw-semibold">
-                  <%= @lesson.available_places %>
-                </div>
-              </div>
-            </div>
-          </div>
+            <dt class="col-sm-4">
+              <%= t("lessons.show.places") %>
+            </dt>
 
-          <hr class="my-4">
+            <dd class="col-sm-8">
+              <%= t(
+                    "lessons.show.booked",
+                    booked: @lesson.booked_places,
+                    capacity: @lesson.capacity
+                  ) %>
+            </dd>
+
+            <dt class="col-sm-4">
+              <%= t("lessons.show.available_places") %>
+            </dt>
+
+            <dd class="col-sm-8">
+              <%= @lesson.available_places %>
+            </dd>
+          </dl>
+
+          <hr>
 
           <% if user_signed_in? %>
             <% if @lesson.booked_by?(current_user) %>
-              <div class="alert alert-success mb-0">
-                <%= t(".booked_message") %>
+              <div class="alert alert-success">
+                <%= t("lessons.show.booked_message") %>
               </div>
+
+              <%= button_to t("lessons.show.cancel_booking"),
+                            lesson_booking_path(@lesson),
+                            method: :delete,
+                            class: "btn btn-outline-danger",
+                            data: {
+                              turbo_confirm: t("lessons.show.cancel_booking_confirmation")
+                            } %>
+
             <% elsif @lesson.available_places > 0 %>
-              <%= button_to t(".book"),
+              <%= button_to t("lessons.show.book"),
                             lesson_bookings_path(@lesson),
                             method: :post,
-                            class: "btn btn-primary w-100" %>
+                            class: "btn btn-primary" %>
             <% else %>
-              <div class="alert alert-warning mb-0">
-                <%= t(".no_places") %>
+              <div class="alert alert-warning">
+                <%= t("lessons.show.no_places") %>
               </div>
             <% end %>
           <% else %>
-            <div class="d-grid">
-              <%= link_to t(".sign_in_to_book"),
-                          new_user_session_path,
-                          class: "btn btn-primary" %>
-            </div>
+            <%= link_to t("lessons.show.sign_in_to_book"),
+                        new_user_session_path,
+                        class: "btn btn-primary" %>
           <% end %>
+
+          <div class="mt-4">
+            <%= link_to t("lessons.show.back"),
+                        lessons_path,
+                        class: "btn btn-link px-0" %>
+          </div>
         </div>
       </div>
     </div>

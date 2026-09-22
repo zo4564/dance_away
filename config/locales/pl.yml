@@ -44,6 +44,22 @@ pl:
       booked: "%{booked} / %{capacity}"
       book: "Zarezerwuj miejsce"
       booked_message: "Masz już rezerwację na te zajęcia."
+      cancel_booking: "Anuluj rezerwację"
+      cancel_booking_confirmation: "Czy na pewno chcesz anulować tę rezerwację?"
+      no_places: "Brak wolnych miejsc."
+      sign_in_to_book: "Zaloguj się, aby zarezerwować miejsce"
+      back: "Wróć do listy zajęć"
+
+    show:
+      style: "Styl"
+      description: "Opis"
+      teacher: "Nauczyciel"
+      date: "Termin"
+      places: "Miejsca"
+      available_places: "Wolne miejsca"
+      booked: "%{booked} / %{capacity}"
+      book: "Zarezerwuj miejsce"
+      booked_message: "Masz już rezerwację na te zajęcia."
       no_places: "Brak wolnych miejsc."
       sign_in_to_book: "Zaloguj się, aby zarezerwować miejsce"
       back: "Wróć do listy zajęć"
@@ -53,6 +69,10 @@ pl:
       success: "Zarezerwowano miejsce na zajęcia."
       full: "Brak wolnych miejsc."
       already_booked: "Masz już rezerwację na te zajęcia."
+
+    destroy:
+      success: "Rezerwacja została anulowana."
+      not_found: "Nie znaleziono Twojej rezerwacji."
 
   errors:
     messages:
@@ -75,6 +95,7 @@ pl:
       default: "%d.%m.%Y, %H:%M"
       short: "%d.%m, %H:%M"
       long: "%d.%m.%Y, %H:%M"
+      hour: "%H:%M"
 
   number:
     format:
