@@ -1,6 +1,4 @@
 class User < ApplicationRecord
-  # Include default devise modules. Others available are:
-  # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
 
@@ -10,9 +8,22 @@ class User < ApplicationRecord
 
   has_many :teaching_lessons,
            class_name: "Lesson",
-           foreign_key: :teacher_id
+           foreign_key: :teacher_id,
+           dependent: :nullify
 
   has_many :bookings,
            foreign_key: :student_id,
            dependent: :destroy
+
+  has_many :booked_lessons,
+           through: :bookings,
+           source: :lesson
+
+  def teacher?
+    role == "teacher"
+  end
+
+  def student?
+    role == "student"
+  end
 end

@@ -7,6 +7,8 @@ Rails.application.routes.draw do
 
   root "home#index"
 
+  get "callendar", to: "callendar#show", as: :callendar
+
   get "lessons", to: "lessons#index"
   get "lessons/:id", to: "lessons#show", as: :lesson
 

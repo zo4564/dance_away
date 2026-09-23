@@ -23,6 +23,12 @@ pl:
       sign_in: "Zaloguj się"
       sign_up: "Zarejestruj się"
 
+  dashboard:
+    show:
+      title: "Mój plan zajęć"
+      today: "Dzisiaj"
+      empty: "Brak zajęć w tym tygodniu."
+
   lessons:
     index:
       title: "Zajęcia taneczne"
@@ -46,20 +52,6 @@ pl:
       booked_message: "Masz już rezerwację na te zajęcia."
       cancel_booking: "Anuluj rezerwację"
       cancel_booking_confirmation: "Czy na pewno chcesz anulować tę rezerwację?"
-      no_places: "Brak wolnych miejsc."
-      sign_in_to_book: "Zaloguj się, aby zarezerwować miejsce"
-      back: "Wróć do listy zajęć"
-
-    show:
-      style: "Styl"
-      description: "Opis"
-      teacher: "Nauczyciel"
-      date: "Termin"
-      places: "Miejsca"
-      available_places: "Wolne miejsca"
-      booked: "%{booked} / %{capacity}"
-      book: "Zarezerwuj miejsce"
-      booked_message: "Masz już rezerwację na te zajęcia."
       no_places: "Brak wolnych miejsc."
       sign_in_to_book: "Zaloguj się, aby zarezerwować miejsce"
       back: "Wróć do listy zajęć"

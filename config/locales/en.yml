@@ -23,6 +23,13 @@ en:
       sign_in: "Sign in"
       sign_up: "Sign up"
 
+  en:
+    dashboard:
+      show:
+        title: "My schedule"
+        today: "Today"
+        empty: "No classes this week."
+
   lessons:
     index:
       title: "Dance lessons"
@@ -50,20 +57,6 @@ en:
         no_places: "No places available."
         sign_in_to_book: "Sign in to book a place"
         back: "Back to lessons"
-
-    show:
-      style: "Style"
-      description: "Description"
-      teacher: "Teacher"
-      date: "Date"
-      places: "Places"
-      available_places: "Available places"
-      booked: "%{booked} / %{capacity}"
-      book: "Book a place"
-      booked_message: "You are already booked for this lesson."
-      no_places: "No places available."
-      sign_in_to_book: "Sign in to book a place"
-      back: "Back to lessons"
 
   bookings:
     create:
