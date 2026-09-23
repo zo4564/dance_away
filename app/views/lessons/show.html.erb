@@ -54,8 +54,14 @@
             </dt>
 
             <dd class="col-sm-8">
-              <%= @lesson.teacher.first_name %>
-              <%= @lesson.teacher.last_name %>
+              <% if @lesson.teacher.present? %>
+                <%= @lesson.teacher.first_name %>
+                <%= @lesson.teacher.last_name %>
+              <% else %>
+                <span class="text-muted">
+                  Brak przypisanego prowadzącego
+                </span>
+              <% end %>
             </dd>
 
             <dt class="col-sm-4">
@@ -92,6 +98,21 @@
           <hr>
 
           <% if user_signed_in? %>
+            <% if current_user.teacher? && @lesson.teacher.nil? %>
+              <hr>
+
+              <% if @lesson.teacher_applied?(current_user) %>
+                <div class="alert alert-info">
+                  Twoje zgłoszenie do prowadzenia tych zajęć oczekuje na akceptację administratora.
+                </div>
+              <% else %>
+                <%= button_to "Zgłoś się jako prowadzący",
+                              lesson_teacher_applications_path(@lesson),
+                              method: :post,
+                              class: "btn btn-outline-primary" %>
+              <% end %>
+            <% end %>
+
             <% if @lesson.booked_by?(current_user) %>
               <div class="alert alert-success">
                 <%= t("lessons.show.booked_message") %>
@@ -110,11 +131,13 @@
                             lesson_bookings_path(@lesson),
                             method: :post,
                             class: "btn btn-primary" %>
+
             <% else %>
               <div class="alert alert-warning">
                 <%= t("lessons.show.no_places") %>
               </div>
             <% end %>
+
           <% else %>
             <%= link_to t("lessons.show.sign_in_to_book"),
                         new_user_session_path,
@@ -126,6 +149,7 @@
                         lessons_path,
                         class: "btn btn-link px-0" %>
           </div>
+
         </div>
       </div>
     </div>

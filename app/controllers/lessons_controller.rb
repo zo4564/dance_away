@@ -13,7 +13,11 @@ class LessonsController < ApplicationController
 
   def show
     @lesson = Lesson
-                .includes(:teacher, dance_class: :dance_style)
+                .includes(
+                  :teacher,
+                  :teacher_applications,
+                  dance_class: :dance_style
+                )
                 .find(params[:id])
   end
 end

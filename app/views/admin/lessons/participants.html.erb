@@ -1,0 +1,70 @@
+<div class="container py-4">
+  <div class="mb-4">
+    <%= link_to "← Powrót do zajęć",
+                admin_lessons_path,
+                class: "btn btn-outline-secondary mb-3" %>
+
+    <h1>Lista uczestników</h1>
+
+    <p class="text-muted">
+      <strong><%= @lesson.dance_class.name %></strong>
+      —
+      <%= l(@lesson.starts_at, format: :long) %>,
+      <%= @lesson.starts_at.strftime("%H:%M") %>
+    </p>
+  </div>
+
+  <div class="card shadow-sm">
+    <div class="card-body">
+      <div class="mb-3">
+        <strong>
+          Uczestnicy:
+        </strong>
+
+        <%= @lesson.booked_places %>
+        /
+        <%= @lesson.capacity %>
+      </div>
+
+      <% if @bookings.any? %>
+        <div class="table-responsive">
+          <table class="table align-middle">
+            <thead>
+            <tr>
+              <th>#</th>
+              <th>Imię i nazwisko</th>
+              <th>Email</th>
+              <th>Data zapisu</th>
+            </tr>
+            </thead>
+
+            <tbody>
+            <% @bookings.each_with_index do |booking, index| %>
+              <tr>
+                <td><%= index + 1 %></td>
+
+                <td>
+                  <%= booking.student.first_name %>
+                  <%= booking.student.last_name %>
+                </td>
+
+                <td>
+                  <%= booking.student.email %>
+                </td>
+
+                <td>
+                  <%= l(booking.created_at, format: :long) %>
+                </td>
+              </tr>
+            <% end %>
+            </tbody>
+          </table>
+        </div>
+      <% else %>
+        <p class="text-muted mb-0">
+          Nikt nie zapisał się jeszcze na te zajęcia.
+        </p>
+      <% end %>
+    </div>
+  </div>
+</div>

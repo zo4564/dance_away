@@ -1,3 +1,5 @@
+# config/routes.rb
+
 Rails.application.routes.draw do
   devise_for :users, controllers: {
     registrations: "users/registrations"
@@ -15,6 +17,10 @@ Rails.application.routes.draw do
     delete "bookings",
            to: "bookings#destroy",
            as: :booking
+
+    post "teacher_applications",
+         to: "teacher_applications#create",
+         as: :teacher_applications
   end
 
   resources :dance_styles, only: [:index, :show]
@@ -27,4 +33,20 @@ Rails.application.routes.draw do
   get "manifest" => "rails/pwa#manifest", as: :pwa_manifest
 
   get "locale/:locale", to: "application#change_locale", as: :change_locale
+
+  namespace :admin do
+    resources :lessons do
+      member do
+        get :participants
+        patch :change_teacher
+      end
+    end
+
+    resources :teacher_applications, only: [:index] do
+      member do
+        patch :accept
+        patch :reject
+      end
+    end
+  end
 end

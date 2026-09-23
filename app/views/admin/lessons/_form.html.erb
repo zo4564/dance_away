@@ -1,0 +1,63 @@
+<%= form_with model: [:admin, lesson] do |form| %>
+  <% if lesson.errors.any? %>
+    <div class="alert alert-danger">
+      <ul class="mb-0">
+        <% lesson.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="mb-3">
+    <%= form.label :dance_class_id,
+                   "Zajęcia",
+                   class: "form-label" %>
+
+    <%= form.collection_select :dance_class_id,
+                               dance_classes,
+                               :id,
+                               :name,
+                               { prompt: "Wybierz zajęcia" },
+                               { class: "form-select" } %>
+  </div>
+
+  <div class="mb-3">
+    <%= form.label :teacher_id,
+                   "Prowadzący",
+                   class: "form-label" %>
+
+    <%= form.collection_select :teacher_id,
+                               teachers,
+                               :id,
+                               ->(teacher) {
+                                 "#{teacher.first_name} #{teacher.last_name}"
+                               },
+                               { include_blank: "Brak prowadzącego" },
+                               { class: "form-select" } %>
+  </div>
+
+  <div class="mb-3">
+    <%= form.label :starts_at,
+                   "Data i godzina",
+                   class: "form-label" %>
+
+    <%= form.datetime_local_field :starts_at,
+                                  class: "form-control" %>
+  </div>
+
+  <div class="mb-3">
+    <%= form.label :capacity,
+                   "Liczba miejsc",
+                   class: "form-label" %>
+
+    <%= form.number_field :capacity,
+                          min: 1,
+                          class: "form-control" %>
+  </div>
+
+  <%= form.submit(
+        lesson.persisted? ? "Zapisz zmiany" : "Utwórz zajęcia",
+        class: "btn btn-primary"
+      ) %>
+<% end %>

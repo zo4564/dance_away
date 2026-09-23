@@ -1,0 +1,17 @@
+<div class="container py-4">
+  <div class="mb-4">
+    <h1>Dodaj zajęcia</h1>
+    <p class="text-muted">
+      Utwórz nowe zajęcia.
+    </p>
+  </div>
+
+  <div class="row">
+    <div class="col-lg-8">
+      <%= render "form",
+                 lesson: @lesson,
+                 dance_classes: @dance_classes,
+                 teachers: @teachers %>
+    </div>
+  </div>
+</div>
