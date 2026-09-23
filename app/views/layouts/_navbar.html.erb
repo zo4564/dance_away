@@ -1,0 +1,133 @@
+<nav class="navbar navbar-expand-lg bg-body-tertiary border-bottom">
+  <div class="container">
+
+    <%= link_to t("navigation.brand"),
+                root_path,
+                class: "navbar-brand fw-semibold" %>
+
+    <button
+      class="navbar-toggler"
+      type="button"
+      data-bs-toggle="collapse"
+      data-bs-target="#mainNavbar"
+      aria-controls="mainNavbar"
+      aria-expanded="false"
+      aria-label="<%= t("navigation.toggle") %>"
+    >
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="mainNavbar">
+
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+
+        <li class="nav-item">
+          <%= link_to t("navigation.my_lessons"),
+                      calendar_path,
+                      class: "nav-link" %>
+        </li>
+
+        <li class="nav-item">
+          <%= link_to t("navigation.dance_styles"),
+                      dance_styles_path,
+                      class: "nav-link" %>
+        </li>
+
+        <li class="nav-item">
+          <%= link_to t("navigation.all_lessons"),
+                      lessons_path,
+                      class: "nav-link" %>
+        </li>
+
+        <li class="nav-item">
+          <%= link_to t("navigation.teachers"),
+                      teachers_path,
+                      class: "nav-link" %>
+        </li>
+
+      </ul>
+
+      <ul class="navbar-nav">
+
+        <li class="nav-item dropdown">
+          <a
+            class="nav-link dropdown-toggle"
+            href="#"
+            role="button"
+            data-bs-toggle="dropdown"
+            aria-expanded="false"
+          >
+            <%= I18n.locale.to_s.upcase %>
+          </a>
+
+          <ul class="dropdown-menu dropdown-menu-end">
+            <li>
+              <%= link_to "Polski",
+                          url_for(locale: :pl),
+                          class: "dropdown-item" %>
+            </li>
+
+            <li>
+              <%= link_to "English",
+                          url_for(locale: :en),
+                          class: "dropdown-item" %>
+            </li>
+          </ul>
+        </li>
+
+        <% if user_signed_in? %>
+
+          <li class="nav-item dropdown">
+            <a
+              class="nav-link dropdown-toggle"
+              href="#"
+              role="button"
+              data-bs-toggle="dropdown"
+              aria-expanded="false"
+            >
+              <%= current_user.first_name %>
+              <%= current_user.last_name %>
+            </a>
+
+            <ul class="dropdown-menu dropdown-menu-end">
+
+              <li>
+                <%= link_to t("navigation.settings"),
+                            edit_user_registration_path,
+                            class: "dropdown-item" %>
+              </li>
+
+              <li>
+                <hr class="dropdown-divider">
+              </li>
+
+              <li>
+                <%= button_to t("navigation.sign_out"),
+                              destroy_user_session_path,
+                              method: :delete,
+                              class: "dropdown-item" %>
+              </li>
+
+            </ul>
+          </li>
+
+        <% else %>
+
+          <li class="nav-item">
+            <%= link_to t("navigation.sign_in"),
+                        new_user_session_path,
+                        class: "nav-link" %>
+          </li>
+
+          <li class="nav-item">
+            <%= link_to t("navigation.sign_up"),
+                        new_user_registration_path,
+                        class: "btn btn-primary ms-lg-2" %>
+          </li>
+
+        <% end %>
+
+      </ul>
+    </div>
+  </div>
+</nav>

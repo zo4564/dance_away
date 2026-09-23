@@ -1,0 +1,56 @@
+<div class="row g-3">
+  <% week_days.each do |day| %>
+    <div class="col-12 col-md">
+      <div class="card h-100">
+        <div class="card-header">
+          <strong>
+            <%= l(day, format: :weekday) %>
+          </strong>
+
+          <div class="text-muted small">
+            <%= l(day, format: :short) %>
+          </div>
+        </div>
+
+        <div class="card-body">
+          <% lessons_by_day.fetch(day, []).each do |lesson| %>
+            <%= link_to lesson_path(lesson),
+                        class: "text-decoration-none" do %>
+              <div class="border rounded p-2 mb-2">
+                <div
+                  class="small fw-semibold"
+                  style="color: <%= lesson.dance_class.dance_style.color %>;"
+                >
+                  <%= lesson.dance_class.dance_style.name %>
+                </div>
+
+                <div class="fw-semibold text-dark">
+                  <%= lesson.dance_class.name %>
+                </div>
+
+                <div class="small text-muted">
+                  <%= l(lesson.starts_at, format: :time) %>
+                  –
+                  <%= l(lesson.ends_at, format: :time) %>
+                </div>
+
+                <% if lesson.teacher.present? %>
+                  <div class="small text-muted">
+                    <%= lesson.teacher.first_name %>
+                    <%= lesson.teacher.last_name %>
+                  </div>
+                <% end %>
+              </div>
+            <% end %>
+          <% end %>
+
+          <% if lessons_by_day.fetch(day, []).empty? %>
+            <span class="text-muted small">
+              <%= t("lessons.shared.empty_day") %>
+            </span>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  <% end %>
+</div>

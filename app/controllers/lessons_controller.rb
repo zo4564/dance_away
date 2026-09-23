@@ -1,11 +1,19 @@
-# frozen_string_literal: true
-
 class LessonsController < ApplicationController
+  include LessonsCalendar
+
   def index
-    @lessons = Lesson.includes(:dance_class, :teacher).order(:starts_at)
+    @view = params[:view].presence_in(%w[list calendar]) || "list"
+
+    @lessons = Lesson
+                 .includes(:teacher, dance_class: :dance_style)
+                 .order(:starts_at)
+
+    prepare_calendar(@lessons)
   end
 
   def show
-    @lesson = Lesson.includes(:dance_class, :teacher).find(params[:id])
+    @lesson = Lesson
+                .includes(:teacher, dance_class: :dance_style)
+                .find(params[:id])
   end
 end

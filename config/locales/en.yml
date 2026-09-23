@@ -4,13 +4,16 @@ en:
     description: "Dance class booking system"
 
   navigation:
-    home: "Home"
-    lessons: "Lessons"
-    dashboard: "Dashboard"
-    account: "My account"
+    brand: "Dance Away"
+    my_lessons: "My lessons"
+    dance_styles: "Dance styles"
+    all_lessons: "All lessons"
+    teachers: "Teachers"
+    settings: "Settings"
     sign_in: "Sign in"
     sign_up: "Sign up"
     sign_out: "Sign out"
+    toggle: "Toggle navigation"
 
   home:
     index:
@@ -23,12 +26,44 @@ en:
       sign_in: "Sign in"
       sign_up: "Sign up"
 
-  en:
-    dashboard:
-      show:
-        title: "My schedule"
-        today: "Today"
-        empty: "No classes this week."
+  calendar:
+    show:
+      title: "My schedule"
+      today: "Today"
+      empty: "No classes this week."
+
+  dance_styles:
+    index:
+      title: "Dance styles"
+      subtitle: "Explore the dance styles available at our school."
+      classes_count:
+        one: "%{count} class type"
+        other: "%{count} class types"
+      view_classes: "View classes"
+      empty: "No dance styles available."
+
+    show:
+      back: "Back to dance styles"
+      classes: "Classes"
+      empty: "No classes available for this style."
+      teacher: "Teacher"
+      date: "Date"
+      places: "Available places"
+      details: "Details"
+
+  teachers:
+    index:
+      title: "Teachers"
+      subtitle: "Meet our teachers."
+      view_schedule: "View classes"
+      empty: "No teachers available."
+
+    show:
+      back: "Back to teachers"
+      date: "Date"
+      places: "Available places"
+      details: "Details"
+      empty: "This teacher has no assigned classes yet."
 
   lessons:
     index:
@@ -41,22 +76,31 @@ en:
       available_places: "available"
       details: "Details"
 
-    lessons:
-      show:
-        style: "Style"
-        description: "Description"
-        teacher: "Teacher"
-        date: "Date"
-        places: "Places"
-        available_places: "Available places"
-        booked: "%{booked} / %{capacity}"
-        book: "Book a place"
-        booked_message: "You are already booked for this lesson."
-        cancel_booking: "Cancel booking"
-        cancel_booking_confirmation: "Are you sure you want to cancel this booking?"
-        no_places: "No places available."
-        sign_in_to_book: "Sign in to book a place"
-        back: "Back to lessons"
+    shared:
+      teacher: "Teacher"
+      date: "Date"
+      places: "Available places"
+      details: "Details"
+      empty: "No classes available."
+      empty_day: "No classes"
+      list_view: "List"
+      calendar_view: "Calendar"
+
+    show:
+      style: "Style"
+      description: "Description"
+      teacher: "Teacher"
+      date: "Date"
+      places: "Places"
+      available_places: "Available places"
+      booked: "%{booked} / %{capacity}"
+      book: "Book a place"
+      booked_message: "You are already booked for this lesson."
+      cancel_booking: "Cancel booking"
+      cancel_booking_confirmation: "Are you sure you want to cancel this booking?"
+      no_places: "No places available."
+      sign_in_to_book: "Sign in to book a place"
+      back: "Back to lessons"
 
   bookings:
     create:
@@ -83,13 +127,32 @@ en:
       default: "%d.%m.%Y"
       short: "%d.%m"
       long: "%d.%m.%Y"
+      weekday: "%A"
+
+      day_names:
+        - Sunday
+        - Monday
+        - Tuesday
+        - Wednesday
+        - Thursday
+        - Friday
+        - Saturday
+
+      abbr_day_names:
+        - Sun.
+        - Mon.
+        - Tue.
+        - Wed.
+        - Thu.
+        - Fri.
+        - Sat.
 
   time:
     formats:
       default: "%d.%m.%Y, %H:%M"
       short: "%d.%m, %H:%M"
       long: "%d.%m.%Y, %H:%M"
-      hour: "%H:%M"
+      time: "%H:%M"
 
   number:
     format:

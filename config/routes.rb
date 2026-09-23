@@ -1,24 +1,25 @@
 Rails.application.routes.draw do
-  get "home/index"
-
   devise_for :users, controllers: {
     registrations: "users/registrations"
   }
 
   root "home#index"
 
-  get "callendar", to: "callendar#show", as: :callendar
+  get "calendar", to: "calendar#show", as: :calendar
 
-  get "lessons", to: "lessons#index"
-  get "lessons/:id", to: "lessons#show", as: :lesson
+  resources :lessons, only: [:index, :show] do
+    post "bookings",
+         to: "bookings#create",
+         as: :bookings
 
-  post "lessons/:lesson_id/bookings",
-       to: "bookings#create",
-       as: :lesson_bookings
+    delete "bookings",
+           to: "bookings#destroy",
+           as: :booking
+  end
 
-  delete "lessons/:lesson_id/bookings",
-         to: "bookings#destroy",
-         as: :lesson_booking
+  resources :dance_styles, only: [:index, :show]
+
+  resources :teachers, only: [:index, :show]
 
   get "up" => "rails/health#show", as: :rails_health_check
 

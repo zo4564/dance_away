@@ -4,13 +4,16 @@ pl:
     description: "System rezerwacji zajęć tanecznych"
 
   navigation:
-    home: "Strona główna"
-    lessons: "Zajęcia"
-    dashboard: "Panel"
-    account: "Moje konto"
+    brand: "Dance Away"
+    my_lessons: "Moje zajęcia"
+    dance_styles: "Style tańca"
+    all_lessons: "Wszystkie zajęcia"
+    teachers: "Nauczyciele"
+    settings: "Ustawienia"
     sign_in: "Zaloguj się"
-    sign_up: "Zarejestruj się"
-    sign_out: "Wyloguj się"
+    sign_up: "Rejestracja"
+    sign_out: "Wyloguj"
+    toggle: "Przełącz nawigację"
 
   home:
     index:
@@ -23,11 +26,44 @@ pl:
       sign_in: "Zaloguj się"
       sign_up: "Zarejestruj się"
 
-  dashboard:
+  calendar:
     show:
       title: "Mój plan zajęć"
       today: "Dzisiaj"
       empty: "Brak zajęć w tym tygodniu."
+
+  dance_styles:
+    index:
+      title: "Style tańca"
+      subtitle: "Poznaj style tańca dostępne w naszej szkole."
+      classes_count:
+        one: "%{count} rodzaj zajęć"
+        other: "%{count} rodzaje zajęć"
+      view_classes: "Zobacz zajęcia"
+      empty: "Brak dostępnych stylów tańca."
+
+    show:
+      back: "Powrót do stylów tańca"
+      classes: "Zajęcia"
+      empty: "Brak zajęć dla tego stylu."
+      teacher: "Nauczyciel"
+      date: "Data"
+      places: "Dostępne miejsca"
+      details: "Szczegóły"
+
+  teachers:
+    index:
+      title: "Nauczyciele"
+      subtitle: "Poznaj naszych nauczycieli."
+      view_schedule: "Zobacz zajęcia"
+      empty: "Brak dostępnych nauczycieli."
+
+    show:
+      back: "Powrót do nauczycieli"
+      date: "Data"
+      places: "Dostępne miejsca"
+      details: "Szczegóły"
+      empty: "Ten nauczyciel nie ma jeszcze przypisanych zajęć."
 
   lessons:
     index:
@@ -39,6 +75,16 @@ pl:
       places: "Miejsca"
       available_places: "wolnych"
       details: "Szczegóły"
+
+    shared:
+      teacher: "Nauczyciel"
+      date: "Data"
+      places: "Dostępne miejsca"
+      details: "Szczegóły"
+      empty: "Brak zajęć."
+      empty_day: "Brak zajęć"
+      list_view: "Lista"
+      calendar_view: "Kalendarz"
 
     show:
       style: "Styl"
@@ -81,13 +127,32 @@ pl:
       default: "%d.%m.%Y"
       short: "%d.%m"
       long: "%d.%m.%Y"
+      weekday: "%A"
+
+    day_names:
+      - niedziela
+      - poniedziałek
+      - wtorek
+      - środa
+      - czwartek
+      - piątek
+      - sobota
+
+    abbr_day_names:
+      - nd.
+      - pon.
+      - wt.
+      - śr.
+      - czw.
+      - pt.
+      - sob.
 
   time:
     formats:
       default: "%d.%m.%Y, %H:%M"
       short: "%d.%m, %H:%M"
       long: "%d.%m.%Y, %H:%M"
-      hour: "%H:%M"
+      time: "%H:%M"
 
   number:
     format:

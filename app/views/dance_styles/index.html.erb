@@ -1,0 +1,73 @@
+<div class="container py-5">
+
+  <div class="mb-5">
+    <h1 class="h2 mb-1">
+      <%= t(".title") %>
+    </h1>
+
+    <p class="text-body-secondary mb-0">
+      <%= t(".subtitle") %>
+    </p>
+  </div>
+
+  <% if @dance_styles.any? %>
+
+    <div class="row g-4">
+
+      <% @dance_styles.each do |dance_style| %>
+
+        <div class="col-md-6 col-lg-4">
+
+          <div
+            class="card h-100 shadow-sm"
+            style="border-top: 5px solid <%= dance_style.color %>;"
+          >
+            <div class="card-body d-flex flex-column">
+
+              <div class="mb-3">
+                <span
+                  class="badge"
+                  style="
+                  background-color: <%= dance_style.color %>;
+                    color: #fff;
+                  "
+                >
+                  <%= dance_style.name %>
+                </span>
+              </div>
+
+              <h2 class="h4">
+                <%= dance_style.name %>
+              </h2>
+
+              <p class="text-body-secondary">
+                <%= t(
+                      ".classes_count",
+                      count: dance_style.dance_classes.size
+                    ) %>
+              </p>
+
+              <div class="mt-auto">
+                <%= link_to t(".view_classes"),
+                            dance_style_path(dance_style),
+                            class: "btn btn-outline-primary w-100" %>
+              </div>
+
+            </div>
+          </div>
+
+        </div>
+
+      <% end %>
+
+    </div>
+
+  <% else %>
+
+    <div class="alert alert-info">
+      <%= t(".empty") %>
+    </div>
+
+  <% end %>
+
+</div>

@@ -1,0 +1,9 @@
+<div class="btn-group mb-4" role="group">
+  <%= link_to t("lessons.shared.list_view"),
+              url_for(view: "list"),
+              class: "btn #{view == "list" ? "btn-primary" : "btn-outline-primary"}" %>
+
+  <%= link_to t("lessons.shared.calendar_view"),
+              url_for(view: "calendar"),
+              class: "btn #{view == "calendar" ? "btn-primary" : "btn-outline-primary"}" %>
+</div>

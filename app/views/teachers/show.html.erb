@@ -1,7 +1,13 @@
 <div class="container py-4">
   <div class="mb-4">
-    <h1><%= t(".title") %></h1>
-    <p class="text-muted"><%= t(".subtitle") %></p>
+    <%= link_to t(".back"),
+                teachers_path,
+                class: "btn btn-outline-secondary mb-3" %>
+
+    <h1>
+      <%= @teacher.first_name %>
+      <%= @teacher.last_name %>
+    </h1>
   </div>
 
   <%= render "shared/view_switcher", view: @view %>
