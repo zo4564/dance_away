@@ -2,9 +2,11 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
 
-  validates :first_name, presence: true
-  validates :last_name, presence: true
-  validates :role, presence: true, inclusion: { in: %w[student teacher] }
+  has_many :user_roles,
+           dependent: :destroy
+
+  has_many :roles,
+           through: :user_roles
 
   has_many :teaching_lessons,
            class_name: "Lesson",
@@ -19,11 +21,22 @@ class User < ApplicationRecord
            through: :bookings,
            source: :lesson
 
-  def teacher?
-    role == "teacher"
-  end
+  validates :first_name, presence: true
+  validates :last_name, presence: true
 
   def student?
-    role == "student"
+    has_role?("student")
+  end
+
+  def teacher?
+    has_role?("teacher")
+  end
+
+  def admin?
+    has_role?("admin")
+  end
+
+  def has_role?(role_name)
+    roles.exists?(name: role_name)
   end
 end

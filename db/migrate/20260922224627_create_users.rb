@@ -15,16 +15,11 @@ class CreateUsers < ActiveRecord::Migration[7.2]
       ## Profile
       t.string :first_name, null: false
       t.string :last_name, null: false
-      t.string :role, null: false
 
       t.timestamps
     end
 
     add_index :users, :email, unique: true
     add_index :users, :reset_password_token, unique: true
-
-    add_check_constraint :users,
-                         "role IN ('student', 'teacher')",
-                         name: "users_role_check"
   end
 end

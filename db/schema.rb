@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2026_09_22_232321) do
+ActiveRecord::Schema[7.2].define(version: 2026_09_23_202528) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -35,9 +35,9 @@ ActiveRecord::Schema[7.2].define(version: 2026_09_22_232321) do
 
   create_table "dance_styles", force: :cascade do |t|
     t.string "name", null: false
+    t.string "color", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.string "color"
     t.index ["name"], name: "index_dance_styles_on_name", unique: true
   end
 
@@ -53,6 +53,35 @@ ActiveRecord::Schema[7.2].define(version: 2026_09_22_232321) do
     t.check_constraint "capacity > 0", name: "lessons_capacity_positive"
   end
 
+  create_table "roles", force: :cascade do |t|
+    t.string "name", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["name"], name: "index_roles_on_name", unique: true
+  end
+
+  create_table "teacher_applications", force: :cascade do |t|
+    t.bigint "teacher_id", null: false
+    t.bigint "lesson_id", null: false
+    t.string "status", default: "pending", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["lesson_id"], name: "index_teacher_applications_on_lesson_id"
+    t.index ["teacher_id", "lesson_id"], name: "index_teacher_applications_on_teacher_id_and_lesson_id", unique: true
+    t.index ["teacher_id"], name: "index_teacher_applications_on_teacher_id"
+    t.check_constraint "status::text = ANY (ARRAY['pending'::character varying, 'accepted'::character varying, 'rejected'::character varying]::text[])", name: "teacher_applications_status_check"
+  end
+
+  create_table "user_roles", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.bigint "role_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["role_id"], name: "index_user_roles_on_role_id"
+    t.index ["user_id", "role_id"], name: "index_user_roles_on_user_id_and_role_id", unique: true
+    t.index ["user_id"], name: "index_user_roles_on_user_id"
+  end
+
   create_table "users", force: :cascade do |t|
     t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false
@@ -61,12 +90,10 @@ ActiveRecord::Schema[7.2].define(version: 2026_09_22_232321) do
     t.datetime "remember_created_at"
     t.string "first_name", null: false
     t.string "last_name", null: false
-    t.string "role", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
-    t.check_constraint "role::text = ANY (ARRAY['student'::character varying, 'teacher'::character varying]::text[])", name: "users_role_check"
   end
 
   add_foreign_key "bookings", "lessons"
@@ -74,4 +101,8 @@ ActiveRecord::Schema[7.2].define(version: 2026_09_22_232321) do
   add_foreign_key "dance_classes", "dance_styles"
   add_foreign_key "lessons", "dance_classes"
   add_foreign_key "lessons", "users", column: "teacher_id"
+  add_foreign_key "teacher_applications", "lessons"
+  add_foreign_key "teacher_applications", "users", column: "teacher_id"
+  add_foreign_key "user_roles", "roles"
+  add_foreign_key "user_roles", "users"
 end

@@ -1,330 +1,609 @@
-# frozen_string_literal: true
-
-PASSWORD = "111111"
-
-puts "Cleaning development data..."
-
+# db/seeds.rb
 Booking.delete_all
+TeacherApplication.delete_all
 Lesson.delete_all
 DanceClass.delete_all
 DanceStyle.delete_all
+UserRole.delete_all
 User.delete_all
+Role.delete_all
+
+puts "Creating roles..."
+
+student_role = Role.create!(name: "student")
+teacher_role = Role.create!(name: "teacher")
+admin_role   = Role.create!(name: "admin")
 
 puts "Creating users..."
 
+admin = User.create!(
+  email: "admin@example.com",
+  password: "123123",
+  password_confirmation: "123123",
+  first_name: "Anna",
+  last_name: "Admin"
+)
+admin.roles << admin_role
+
 teachers = [
-  {
-    email: "anna@example.com",
-    first_name: "Anna",
-    last_name: "Nowak"
-  },
-  {
-    email: "piotr@example.com",
-    first_name: "Piotr",
-    last_name: "Kowalski"
-  },
-  {
-    email: "marta@example.com",
-    first_name: "Marta",
-    last_name: "Wiśniewska"
-  }
-].map do |attributes|
   User.create!(
-    **attributes,
-    password: PASSWORD,
-    role: "teacher"
+    email: "sofia@example.com",
+    password: "123123",
+    password_confirmation: "123123",
+    first_name: "Sofia",
+    last_name: "Kowalska"
+  ),
+  User.create!(
+    email: "mateusz@example.com",
+    password: "123123",
+    password_confirmation: "123123",
+    first_name: "Mateusz",
+    last_name: "Nowak"
+  ),
+  User.create!(
+    email: "julia@example.com",
+    password: "123123",
+    password_confirmation: "123123",
+    first_name: "Julia",
+    last_name: "Wójcik"
+  ),
+  User.create!(
+    email: "kamil@example.com",
+    password: "123123",
+    password_confirmation: "123123",
+    first_name: "Kamil",
+    last_name: "Lewandowski"
+  ),
+  User.create!(
+    email: "olivia@example.com",
+    password: "123123",
+    password_confirmation: "123123",
+    first_name: "Olivia",
+    last_name: "Zielińska"
   )
+]
+
+teachers.each do |teacher|
+  teacher.roles << teacher_role
 end
 
+# Jeden użytkownik może mieć więcej niż jedną rolę.
+# Dzięki temu możemy np. mieć admina, który jest jednocześnie nauczycielem.
+admin.roles << teacher_role
+
 students = [
-  {
-    email: "jan@example.com",
-    first_name: "Jan",
-    last_name: "Kowalski"
-  },
-  {
-    email: "kasia@example.com",
-    first_name: "Katarzyna",
-    last_name: "Nowak"
-  },
-  {
-    email: "tomek@example.com",
-    first_name: "Tomasz",
-    last_name: "Wójcik"
-  },
-  {
-    email: "ania@example.com",
-    first_name: "Anna",
-    last_name: "Lewandowska"
-  },
-  {
-    email: "michal@example.com",
-    first_name: "Michał",
-    last_name: "Kamiński"
-  },
-  {
-    email: "ola@example.com",
-    first_name: "Aleksandra",
-    last_name: "Zielińska"
-  }
-].map do |attributes|
   User.create!(
-    **attributes,
-    password: PASSWORD,
-    role: "student"
+    email: "michal@example.com",
+    password: "123123",
+    password_confirmation: "123123",
+    first_name: "Michał",
+    last_name: "Kaczmarek"
+  ),
+  User.create!(
+    email: "zuzanna@example.com",
+    password: "123123",
+    password_confirmation: "123123",
+    first_name: "Zuzanna",
+    last_name: "Mazur"
+  ),
+  User.create!(
+    email: "aleksandra@example.com",
+    password: "123123",
+    password_confirmation: "123123",
+    first_name: "Aleksandra",
+    last_name: "Król"
+  ),
+  User.create!(
+    email: "jakub@example.com",
+    password: "123123",
+    password_confirmation: "123123",
+    first_name: "Jakub",
+    last_name: "Dąbrowski"
+  ),
+  User.create!(
+    email: "natalia@example.com",
+    password: "123123",
+    password_confirmation: "123123",
+    first_name: "Natalia",
+    last_name: "Piotrowska"
+  ),
+  User.create!(
+    email: "karolina@example.com",
+    password: "123123",
+    password_confirmation: "123123",
+    first_name: "Karolina",
+    last_name: "Grabowska"
+  ),
+  User.create!(
+    email: "tomasz@example.com",
+    password: "123123",
+    password_confirmation: "123123",
+    first_name: "Tomasz",
+    last_name: "Pawlak"
+  ),
+  User.create!(
+    email: "weronika@example.com",
+    password: "123123",
+    password_confirmation: "123123",
+    first_name: "Weronika",
+    last_name: "Michalska"
+  ),
+  User.create!(
+    email: "piotr@example.com",
+    password: "123123",
+    password_confirmation: "123123",
+    first_name: "Piotr",
+    last_name: "Sikora"
+  ),
+  User.create!(
+    email: "amelia@example.com",
+    password: "123123",
+    password_confirmation: "123123",
+    first_name: "Amelia",
+    last_name: "Lis"
   )
+]
+
+students.each do |student|
+  student.roles << student_role
 end
 
 puts "Creating dance styles..."
 
-styles = {
-  salsa: DanceStyle.create!(
-    name: "Salsa",
-    color: "#E76F51"
-  ),
+salsa = DanceStyle.create!(
+  name: "Salsa",
+  color: "#E63946"
+)
 
-  bachata: DanceStyle.create!(
-    name: "Bachata",
-    color: "#2A9D8F"
-  ),
+bachata = DanceStyle.create!(
+  name: "Bachata",
+  color: "#F4A261"
+)
 
-  kizomba: DanceStyle.create!(
-    name: "Kizomba",
-    color: "#457B9D"
-  ),
+dancehall = DanceStyle.create!(
+  name: "Dancehall",
+  color: "#2A9D8F"
+)
 
-  hip_hop: DanceStyle.create!(
-    name: "Hip Hop",
-    color: "#9B5DE5"
-  ),
+hip_hop = DanceStyle.create!(
+  name: "Hip Hop",
+  color: "#264653"
+)
 
-  contemporary: DanceStyle.create!(
-    name: "Contemporary",
-    color: "#F4A261"
-  ),
+jazz = DanceStyle.create!(
+  name: "Jazz",
+  color: "#6A4C93"
+)
 
-  jazz: DanceStyle.create!(
-    name: "Jazz",
-    color: "#E9C46A"
-  )
-}
+commercial = DanceStyle.create!(
+  name: "Commercial",
+  color: "#FF6B6B"
+)
+
+kpop = DanceStyle.create!(
+  name: "K-pop",
+  color: "#C77DFF"
+)
 
 puts "Creating dance classes..."
 
-classes = {
-  salsa_beginner: DanceClass.create!(
-    name: "Salsa Beginners",
-    description: "Podstawy salsy dla osób rozpoczynających naukę.",
-    dance_style: styles[:salsa]
-  ),
+salsa_beginner = DanceClass.create!(
+  name: "Salsa Beginners",
+  description: "Podstawy salsy dla osób zaczynających swoją przygodę z tańcem.",
+  dance_style: salsa
+)
 
-  salsa_intermediate: DanceClass.create!(
-    name: "Salsa Intermediate",
-    description: "Salsa dla osób znających podstawowe kroki i figury.",
-    dance_style: styles[:salsa]
-  ),
+salsa_intermediate = DanceClass.create!(
+  name: "Salsa Intermediate",
+  description: "Salsa na poziomie średniozaawansowanym.",
+  dance_style: salsa
+)
 
-  bachata_beginner: DanceClass.create!(
-    name: "Bachata Beginners",
-    description: "Pierwsze kroki bachaty i podstawowe figury.",
-    dance_style: styles[:bachata]
-  ),
+bachata_beginner = DanceClass.create!(
+  name: "Bachata Beginners",
+  description: "Podstawowe kroki, prowadzenie i styling bachaty.",
+  dance_style: bachata
+)
 
-  bachata_intermediate: DanceClass.create!(
-    name: "Bachata Intermediate",
-    description: "Rozwijanie techniki i bardziej zaawansowanych figur bachaty.",
-    dance_style: styles[:bachata]
-  ),
+bachata_sensual = DanceClass.create!(
+  name: "Bachata Sensual",
+  description: "Bachata sensual, izolacje, body movement i musicality.",
+  dance_style: bachata
+)
 
-  kizomba_beginner: DanceClass.create!(
-    name: "Kizomba Beginners",
-    description: "Wprowadzenie do podstaw kizomby.",
-    dance_style: styles[:kizomba]
-  ),
+dancehall_beginner = DanceClass.create!(
+  name: "Dancehall Beginners",
+  description: "Podstawy dancehallu, groove i fundamenty jamajskiego stylu.",
+  dance_style: dancehall
+)
 
-  hip_hop_beginner: DanceClass.create!(
-    name: "Hip Hop Beginners",
-    description: "Podstawy hip hopu i pracy z rytmem.",
-    dance_style: styles[:hip_hop]
-  ),
+dancehall_open = DanceClass.create!(
+  name: "Dancehall Open Level",
+  description: "Energetyczne choreografie dancehall dla różnych poziomów.",
+  dance_style: dancehall
+)
 
-  contemporary: DanceClass.create!(
-    name: "Contemporary",
-    description: "Technika contemporary, ruch i interpretacja muzyki.",
-    dance_style: styles[:contemporary]
-  ),
+hip_hop_beginner = DanceClass.create!(
+  name: "Hip Hop Beginners",
+  description: "Podstawy hip hopu, groove, bounce i podstawowe kroki.",
+  dance_style: hip_hop
+)
 
-  jazz_beginner: DanceClass.create!(
-    name: "Jazz Beginners",
-    description: "Podstawy techniki jazzowej.",
-    dance_style: styles[:jazz]
-  )
-}
+hip_hop_choreo = DanceClass.create!(
+  name: "Hip Hop Choreography",
+  description: "Choreografie hip hopowe z naciskiem na musicality i performance.",
+  dance_style: hip_hop
+)
+
+jazz_beginner = DanceClass.create!(
+  name: "Jazz Beginners",
+  description: "Podstawy jazzu, technika, izolacje i choreografie.",
+  dance_style: jazz
+)
+
+commercial_open = DanceClass.create!(
+  name: "Commercial Open",
+  description: "Dynamiczne choreografie inspirowane teledyskami i sceną.",
+  dance_style: commercial
+)
+
+kpop_choreo = DanceClass.create!(
+  name: "K-pop Choreography",
+  description: "Choreografie inspirowane najpopularniejszymi zespołami K-pop.",
+  dance_style: kpop
+)
+
+kpop_beginner = DanceClass.create!(
+  name: "K-pop Beginners",
+  description: "Podstawy choreografii K-pop dla początkujących.",
+  dance_style: kpop
+)
 
 puts "Creating lessons..."
 
-def create_lesson(dance_class:, teacher:, starts_at:, capacity: 10)
-  Lesson.create!(
-    dance_class: dance_class,
-    teacher: teacher,
-    starts_at: starts_at,
-    capacity: capacity
-  )
-end
+now = Time.current
 
 lessons = []
 
-lessons << create_lesson(
-  dance_class: classes[:salsa_beginner],
+# Salsa
+
+lessons << Lesson.create!(
+  dance_class: salsa_beginner,
   teacher: teachers[0],
-  starts_at: Time.zone.parse("2026-09-24 18:00"),
-  capacity: 10
-)
-
-lessons << create_lesson(
-  dance_class: classes[:salsa_intermediate],
-  teacher: teachers[1],
-  starts_at: Time.zone.parse("2026-09-24 20:00"),
-  capacity: 12
-)
-
-lessons << create_lesson(
-  dance_class: classes[:bachata_beginner],
-  teacher: teachers[2],
-  starts_at: Time.zone.parse("2026-09-25 18:00"),
-  capacity: 10
-)
-
-lessons << create_lesson(
-  dance_class: classes[:bachata_intermediate],
-  teacher: teachers[0],
-  starts_at: Time.zone.parse("2026-09-25 20:00"),
-  capacity: 8
-)
-
-lessons << create_lesson(
-  dance_class: classes[:kizomba_beginner],
-  teacher: teachers[1],
-  starts_at: Time.zone.parse("2026-09-26 16:00"),
-  capacity: 10
-)
-
-lessons << create_lesson(
-  dance_class: classes[:hip_hop_beginner],
-  teacher: teachers[2],
-  starts_at: Time.zone.parse("2026-09-26 18:00"),
+  starts_at: now.change(hour: 17, min: 0) + 1.day,
   capacity: 15
 )
 
-lessons << create_lesson(
-  dance_class: classes[:contemporary],
+lessons << Lesson.create!(
+  dance_class: salsa_beginner,
   teacher: teachers[0],
-  starts_at: Time.zone.parse("2026-09-27 16:00"),
+  starts_at: now.change(hour: 17, min: 0) + 8.days,
+  capacity: 15
+)
+
+lessons << Lesson.create!(
+  dance_class: salsa_intermediate,
+  teacher: teachers[1],
+  starts_at: now.change(hour: 19, min: 0) + 2.days,
   capacity: 12
 )
 
-lessons << create_lesson(
-  dance_class: classes[:jazz_beginner],
+lessons << Lesson.create!(
+  dance_class: salsa_intermediate,
   teacher: teachers[1],
-  starts_at: Time.zone.parse("2026-09-27 18:00"),
-  capacity: 10
+  starts_at: now.change(hour: 19, min: 0) + 9.days,
+  capacity: 12
 )
 
-lessons << create_lesson(
-  dance_class: classes[:salsa_beginner],
-  teacher: teachers[2],
-  starts_at: Time.zone.parse("2026-09-28 18:00"),
-  capacity: 5
-)
+# Bachata
 
-lessons << create_lesson(
-  dance_class: classes[:bachata_beginner],
+lessons << Lesson.create!(
+  dance_class: bachata_beginner,
   teacher: teachers[0],
-  starts_at: Time.zone.parse("2026-09-28 20:00"),
-  capacity: 6
+  starts_at: now.change(hour: 18, min: 0) + 2.days,
+  capacity: 16
+)
+
+lessons << Lesson.create!(
+  dance_class: bachata_beginner,
+  teacher: teachers[0],
+  starts_at: now.change(hour: 18, min: 0) + 9.days,
+  capacity: 16
+)
+
+lessons << Lesson.create!(
+  dance_class: bachata_sensual,
+  teacher: teachers[2],
+  starts_at: now.change(hour: 20, min: 0) + 3.days,
+  capacity: 14
+)
+
+lessons << Lesson.create!(
+  dance_class: bachata_sensual,
+  teacher: teachers[2],
+  starts_at: now.change(hour: 20, min: 0) + 10.days,
+  capacity: 14
+)
+
+# Dancehall
+
+lessons << Lesson.create!(
+  dance_class: dancehall_beginner,
+  teacher: teachers[3],
+  starts_at: now.change(hour: 17, min: 30) + 3.days,
+  capacity: 18
+)
+
+lessons << Lesson.create!(
+  dance_class: dancehall_open,
+  teacher: teachers[3],
+  starts_at: now.change(hour: 19, min: 30) + 4.days,
+  capacity: 18
+)
+
+lessons << Lesson.create!(
+  dance_class: dancehall_open,
+  teacher: nil,
+  starts_at: now.change(hour: 19, min: 30) + 11.days,
+  capacity: 18
+)
+
+# Hip Hop
+
+lessons << Lesson.create!(
+  dance_class: hip_hop_beginner,
+  teacher: teachers[1],
+  starts_at: now.change(hour: 17, min: 0) + 4.days,
+  capacity: 20
+)
+
+lessons << Lesson.create!(
+  dance_class: hip_hop_choreo,
+  teacher: teachers[3],
+  starts_at: now.change(hour: 20, min: 0) + 5.days,
+  capacity: 18
+)
+
+lessons << Lesson.create!(
+  dance_class: hip_hop_choreo,
+  teacher: nil,
+  starts_at: now.change(hour: 20, min: 0) + 12.days,
+  capacity: 18
+)
+
+# Jazz
+
+lessons << Lesson.create!(
+  dance_class: jazz_beginner,
+  teacher: teachers[2],
+  starts_at: now.change(hour: 18, min: 0) + 5.days,
+  capacity: 15
+)
+
+lessons << Lesson.create!(
+  dance_class: jazz_beginner,
+  teacher: teachers[2],
+  starts_at: now.change(hour: 18, min: 0) + 12.days,
+  capacity: 15
+)
+
+# Commercial
+
+lessons << Lesson.create!(
+  dance_class: commercial_open,
+  teacher: teachers[4],
+  starts_at: now.change(hour: 19, min: 0) + 6.days,
+  capacity: 20
+)
+
+lessons << Lesson.create!(
+  dance_class: commercial_open,
+  teacher: teachers[4],
+  starts_at: now.change(hour: 19, min: 0) + 13.days,
+  capacity: 20
+)
+
+# K-pop
+
+lessons << Lesson.create!(
+  dance_class: kpop_beginner,
+  teacher: teachers[4],
+  starts_at: now.change(hour: 17, min: 0) + 6.days,
+  capacity: 20
+)
+
+lessons << Lesson.create!(
+  dance_class: kpop_choreo,
+  teacher: teachers[4],
+  starts_at: now.change(hour: 19, min: 0) + 7.days,
+  capacity: 20
+)
+
+lessons << Lesson.create!(
+  dance_class: kpop_choreo,
+  teacher: nil,
+  starts_at: now.change(hour: 19, min: 0) + 14.days,
+  capacity: 20
+)
+
+puts "Creating teacher applications..."
+
+# Zgłoszenia nauczycieli do lekcji.
+# Część z nich jest pending, część rejected, a część accepted.
+
+TeacherApplication.create!(
+  teacher: teachers[1],
+  lesson: lessons[0],
+  status: "pending"
+)
+
+TeacherApplication.create!(
+  teacher: teachers[2],
+  lesson: lessons[0],
+  status: "rejected"
+)
+
+TeacherApplication.create!(
+  teacher: teachers[0],
+  lesson: lessons[2],
+  status: "accepted"
+)
+
+TeacherApplication.create!(
+  teacher: teachers[2],
+  lesson: lessons[8],
+  status: "pending"
+)
+
+TeacherApplication.create!(
+  teacher: teachers[3],
+  lesson: lessons[10],
+  status: "pending"
+)
+
+TeacherApplication.create!(
+  teacher: teachers[4],
+  lesson: lessons[13],
+  status: "pending"
+)
+
+TeacherApplication.create!(
+  teacher: teachers[1],
+  lesson: lessons[13],
+  status: "rejected"
+)
+
+TeacherApplication.create!(
+  teacher: teachers[0],
+  lesson: lessons[20],
+  status: "pending"
+)
+
+TeacherApplication.create!(
+  teacher: teachers[2],
+  lesson: lessons[20],
+  status: "pending"
 )
 
 puts "Creating bookings..."
 
-# Jan attends two different lessons.
-Booking.create!(
-  student: students[0],
-  lesson: lessons[0]
-)
+def book(student, lesson)
+  booking = Booking.create(
+    student: student,
+    lesson: lesson
+  )
+end
 
-Booking.create!(
-  student: students[0],
-  lesson: lessons[2]
-)
+# Salsa Beginners
+book(students[0], lessons[0])
+book(students[1], lessons[0])
+book(students[2], lessons[0])
+book(students[3], lessons[0])
 
-# Kasia attends Salsa and Bachata.
-Booking.create!(
-  student: students[1],
-  lesson: lessons[0]
-)
+book(students[0], lessons[1])
+book(students[4], lessons[1])
+book(students[5], lessons[1])
 
-Booking.create!(
-  student: students[1],
-  lesson: lessons[3]
-)
+# Salsa Intermediate
+book(students[2], lessons[2])
+book(students[3], lessons[2])
+book(students[6], lessons[2])
 
-# Tomek attends Hip Hop and Contemporary.
-Booking.create!(
-  student: students[2],
-  lesson: lessons[5]
-)
+book(students[7], lessons[3])
+book(students[8], lessons[3])
 
-Booking.create!(
-  student: students[2],
-  lesson: lessons[6]
-)
+# Bachata Beginners
+book(students[1], lessons[4])
+book(students[5], lessons[4])
+book(students[9], lessons[4])
 
-# Ania attends several classes.
-Booking.create!(
-  student: students[3],
-  lesson: lessons[1]
-)
+book(students[0], lessons[5])
+book(students[4], lessons[5])
+book(students[7], lessons[5])
 
-Booking.create!(
-  student: students[3],
-  lesson: lessons[4]
-)
+# Bachata Sensual
+book(students[3], lessons[6])
+book(students[5], lessons[6])
+book(students[6], lessons[6])
+book(students[8], lessons[6])
 
-Booking.create!(
-  student: students[3],
-  lesson: lessons[7]
-)
+book(students[1], lessons[7])
+book(students[2], lessons[7])
 
-# Michał attends the small-capacity Salsa class.
-Booking.create!(
-  student: students[4],
-  lesson: lessons[8]
-)
+# Dancehall
+book(students[4], lessons[8])
+book(students[6], lessons[8])
+book(students[9], lessons[8])
 
-# Ola attends Bachata.
-Booking.create!(
-  student: students[5],
-  lesson: lessons[9]
-)
+book(students[0], lessons[9])
+book(students[3], lessons[9])
+book(students[5], lessons[9])
+book(students[8], lessons[9])
+
+# Lekcja bez nauczyciela
+book(students[2], lessons[10])
+book(students[7], lessons[10])
+
+# Hip Hop
+book(students[0], lessons[11])
+book(students[1], lessons[11])
+book(students[6], lessons[11])
+
+book(students[3], lessons[12])
+book(students[4], lessons[12])
+book(students[8], lessons[12])
+book(students[9], lessons[12])
+
+# Lekcja bez nauczyciela
+book(students[2], lessons[13])
+book(students[5], lessons[13])
+
+# Jazz
+book(students[1], lessons[14])
+book(students[4], lessons[14])
+book(students[7], lessons[14])
+
+book(students[0], lessons[15])
+book(students[6], lessons[15])
+
+# Commercial
+book(students[2], lessons[16])
+book(students[3], lessons[16])
+book(students[5], lessons[16])
+book(students[9], lessons[16])
+
+book(students[1], lessons[17])
+book(students[4], lessons[17])
+book(students[8], lessons[17])
+
+# K-pop
+book(students[0], lessons[18])
+book(students[2], lessons[18])
+book(students[5], lessons[18])
+book(students[7], lessons[18])
+book(students[9], lessons[18])
+
+book(students[1], lessons[19])
+book(students[3], lessons[19])
+book(students[4], lessons[19])
+book(students[6], lessons[19])
+
+# Lekcja K-pop bez nauczyciela
+book(students[2], lessons[20])
+book(students[7], lessons[20])
 
 puts
-puts "Seed completed."
+puts "Seed completed!"
+puts
+puts "Admin:"
+puts "  admin@example.com / 123123"
 puts
 puts "Teachers:"
 teachers.each do |teacher|
-  puts "  #{teacher.email} / #{PASSWORD}"
+  puts "  #{teacher.email} / 123123"
 end
-
 puts
 puts "Students:"
 students.each do |student|
-  puts "  #{student.email} / #{PASSWORD}"
+  puts "  #{student.email} / 123123"
 end
-
-puts
-puts "Created:"
-puts "  Users:         #{User.count}"
-puts "  Dance styles:  #{DanceStyle.count}"
-puts "  Dance classes: #{DanceClass.count}"
-puts "  Lessons:       #{Lesson.count}"
-puts "  Bookings:      #{Booking.count}"

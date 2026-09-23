@@ -63,13 +63,11 @@
           <ul class="dropdown-menu dropdown-menu-end">
             <li>
               <%= link_to "Polski",
-                          url_for(locale: :pl),
-                          class: "dropdown-item" %>
-            </li>
+                           change_locale_path(:pl),
+                           class: "dropdown-item" %>
 
-            <li>
               <%= link_to "English",
-                          url_for(locale: :en),
+                          change_locale_path(:en),
                           class: "dropdown-item" %>
             </li>
           </ul>

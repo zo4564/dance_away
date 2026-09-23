@@ -3,15 +3,17 @@ class TeachersController < ApplicationController
 
   def index
     @teachers = User
-                  .where(role: "teacher")
+                  .joins(:roles)
+                  .where(roles: { name: "teacher" })
+                  .distinct
                   .order(:last_name, :first_name)
   end
 
   def show
-    @teacher = User.find_by!(
-      id: params[:id],
-      role: "teacher"
-    )
+    @teacher = User
+                 .joins(:roles)
+                 .where(roles: { name: "teacher" })
+                 .find(params[:id])
 
     @view = params[:view].presence_in(%w[list calendar]) || "list"
 
