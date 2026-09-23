@@ -21,6 +21,10 @@ class User < ApplicationRecord
            through: :bookings,
            source: :lesson
 
+  has_many :teacher_applications,
+           foreign_key: :teacher_id,
+           dependent: :destroy
+
   validates :first_name, presence: true
   validates :last_name, presence: true
 

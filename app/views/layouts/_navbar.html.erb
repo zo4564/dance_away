@@ -51,12 +51,12 @@
                       admin_lessons_path,
                       class: "nav-link" %>
           </li>
+        <% end %>
 
-          <li class="nav-item">
-            <%= link_to "Zgłoszenia nauczycieli",
-                      admin_teacher_applications_path,
+        <% if user_signed_in? && current_user.teacher? %>
+          <%= link_to "Moje zgłoszenia",
+                      my_teacher_applications_path,
                       class: "nav-link" %>
-          </li>
         <% end %>
 
       </ul>

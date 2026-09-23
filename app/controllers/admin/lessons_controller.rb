@@ -68,25 +68,25 @@ class Admin::LessonsController < ApplicationController
   def change_teacher
     teacher_id = params.dig(:lesson, :teacher_id)
 
-    if teacher_id.blank?
-      redirect_to admin_lessons_path,
-                  alert: "Wybierz nauczyciela."
-      return
-    end
-
     application = @lesson.teacher_applications
                          .where(status: %w[pending accepted])
                          .find_by(teacher_id: teacher_id)
 
     unless application
       redirect_to admin_lessons_path,
-                  alert: "Ten nauczyciel nie zgłosił się do tych zajęć."
+                  alert: "Wybrany nauczyciel nie zgłosił się do tych zajęć."
       return
     end
 
-    @lesson.update!(teacher: application.teacher)
+    ApplicationRecord.transaction do
+      @lesson.update!(teacher: application.teacher)
 
-    application.update!(status: "accepted")
+      @lesson.teacher_applications
+             .where.not(id: application.id)
+             .update_all(status: "rejected")
+
+      application.update!(status: "accepted")
+    end
 
     redirect_to admin_lessons_path,
                 notice: "Prowadzący został zmieniony."

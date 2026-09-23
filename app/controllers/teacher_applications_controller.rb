@@ -1,7 +1,18 @@
 class TeacherApplicationsController < ApplicationController
   before_action :authenticate_user!
   before_action :require_teacher!
-  before_action :set_lesson
+  before_action :set_lesson, only: :create
+
+  def index
+    @applications = current_user
+                      .teacher_applications
+                      .includes(
+                        lesson: {
+                          dance_class: :dance_style
+                        }
+                      )
+                      .order(created_at: :desc)
+  end
 
   def create
     if @lesson.teacher.present?

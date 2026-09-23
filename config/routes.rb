@@ -23,6 +23,10 @@ Rails.application.routes.draw do
          as: :teacher_applications
   end
 
+  get "my_teacher_applications",
+      to: "teacher_applications#index",
+      as: :my_teacher_applications
+
   resources :dance_styles, only: [:index, :show]
 
   resources :teachers, only: [:index, :show]
@@ -39,13 +43,6 @@ Rails.application.routes.draw do
       member do
         get :participants
         patch :change_teacher
-      end
-    end
-
-    resources :teacher_applications, only: [:index] do
-      member do
-        patch :accept
-        patch :reject
       end
     end
   end

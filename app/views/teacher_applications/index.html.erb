@@ -1,0 +1,66 @@
+<div class="container py-4">
+  <div class="mb-4">
+    <h1>Moje zgłoszenia</h1>
+    <p class="text-muted">
+      Lista zgłoszeń do prowadzenia zajęć i ich aktualny status.
+    </p>
+  </div>
+
+  <% if @applications.any? %>
+    <div class="row g-4">
+      <% @applications.each do |application| %>
+        <div class="col-12 col-lg-6">
+          <div class="card shadow-sm h-100">
+            <div class="card-body">
+
+              <h2 class="h5">
+                <%= application.lesson.dance_class.name %>
+              </h2>
+
+              <p class="text-muted mb-3">
+                <%= application.lesson.dance_class.dance_style.name %>
+              </p>
+
+              <p>
+                <strong>Data i godzina:</strong><br>
+                <%= l(application.lesson.starts_at, format: :long) %>
+                —
+                <%= application.lesson.starts_at.strftime("%H:%M") %>
+              </p>
+
+              <p>
+                <strong>Status:</strong><br>
+
+                <% case application.status %>
+                <% when "pending" %>
+                  <span class="badge text-bg-warning">
+                    Oczekujące
+                  </span>
+
+                <% when "accepted" %>
+                  <span class="badge text-bg-success">
+                    Zaakceptowane
+                  </span>
+
+                <% when "rejected" %>
+                  <span class="badge text-bg-danger">
+                    Odrzucone
+                  </span>
+                <% end %>
+              </p>
+
+              <%= link_to "Zobacz zajęcia",
+                          lesson_path(application.lesson),
+                          class: "btn btn-sm btn-outline-primary" %>
+
+            </div>
+          </div>
+        </div>
+      <% end %>
+    </div>
+  <% else %>
+    <div class="alert alert-info">
+      Nie masz jeszcze żadnych zgłoszeń.
+    </div>
+  <% end %>
+</div>
