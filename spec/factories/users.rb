@@ -6,10 +6,23 @@ FactoryBot.define do
     password { "password123" }
     first_name { "Jan" }
     last_name { "Kowalski" }
-    role { "student" }
+
+    trait :student do
+      after(:create) do |user|
+        user.roles << Role.find_or_create_by!(name: "student")
+      end
+    end
 
     trait :teacher do
-      role { "teacher" }
+      after(:create) do |user|
+        user.roles << Role.find_or_create_by!(name: "teacher")
+      end
+    end
+
+    trait :admin do
+      after(:create) do |user|
+        user.roles << Role.find_or_create_by!(name: "admin")
+      end
     end
   end
 end

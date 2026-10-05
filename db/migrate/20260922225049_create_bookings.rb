@@ -13,7 +13,7 @@ class CreateBookings < ActiveRecord::Migration[7.2]
     end
 
     add_index :bookings,
-              [:student_id, :lesson_id],
+              [ :student_id, :lesson_id ],
               unique: true
   end
 end

@@ -1,0 +1,89 @@
+<%= form_with model: [:admin, user] do |form| %>
+  <% if user.errors.any? %>
+    <div class="alert alert-danger">
+      <ul class="mb-0">
+        <% user.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="mb-3">
+    <%= form.label :first_name,
+                   "Imię",
+                   class: "form-label" %>
+
+    <%= form.text_field :first_name,
+                        class: "form-control" %>
+  </div>
+
+  <div class="mb-3">
+    <%= form.label :last_name,
+                   "Nazwisko",
+                   class: "form-label" %>
+
+    <%= form.text_field :last_name,
+                        class: "form-control" %>
+  </div>
+
+  <div class="mb-3">
+    <%= form.label :email,
+                   "Email",
+                   class: "form-label" %>
+
+    <%= form.email_field :email,
+                         class: "form-control" %>
+  </div>
+
+  <div class="mb-3">
+    <%= form.label :password,
+                   "Hasło",
+                   class: "form-label" %>
+
+    <%= form.password_field :password,
+                            class: "form-control" %>
+
+    <% if user.persisted? %>
+      <div class="form-text">
+        Pozostaw puste, jeśli hasło nie ma być zmieniane.
+      </div>
+    <% end %>
+  </div>
+
+  <div class="mb-3">
+    <%= form.label :password_confirmation,
+                   "Potwierdzenie hasła",
+                   class: "form-label" %>
+
+    <%= form.password_field :password_confirmation,
+                            class: "form-control" %>
+  </div>
+
+  <div class="mb-3">
+    <%= form.label :role_ids,
+                   "Role",
+                   class: "form-label" %>
+
+    <% roles.each do |role| %>
+      <div class="form-check">
+        <%= form.check_box :role_ids,
+                           {
+                             multiple: true,
+                             class: "form-check-input"
+                           },
+                           role.id,
+                           nil %>
+
+        <%= form.label "role_ids_#{role.id}",
+                       role.name.capitalize,
+                       class: "form-check-label" %>
+      </div>
+    <% end %>
+  </div>
+
+  <%= form.submit(
+        user.persisted? ? "Zapisz zmiany" : "Utwórz użytkownika",
+        class: "btn btn-primary"
+      ) %>
+<% end %>

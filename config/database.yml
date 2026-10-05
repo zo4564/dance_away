@@ -61,7 +61,7 @@ test:
   <<: *default
   database: dance_away_test
   username: postgres
-  password: zmienmnie
+  password: <%= ENV.fetch("POSTGRES_PASSWORD") %>
   host: localhost
 
 # As with config/credentials.yml, you never want to store sensitive information,

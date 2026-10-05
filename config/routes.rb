@@ -9,7 +9,7 @@ Rails.application.routes.draw do
 
   get "calendar", to: "calendar#show", as: :calendar
 
-  resources :lessons, only: [:index, :show] do
+  resources :lessons, only: [ :index, :show ] do
     post "bookings",
          to: "bookings#create",
          as: :bookings
@@ -27,9 +27,9 @@ Rails.application.routes.draw do
       to: "teacher_applications#index",
       as: :my_teacher_applications
 
-  resources :dance_styles, only: [:index, :show]
+  resources :dance_styles, only: [ :index, :show ]
 
-  resources :teachers, only: [:index, :show]
+  resources :teachers, only: [ :index, :show ]
 
   get "up" => "rails/health#show", as: :rails_health_check
 
@@ -45,5 +45,7 @@ Rails.application.routes.draw do
         patch :change_teacher
       end
     end
+
+    resources :users
   end
 end

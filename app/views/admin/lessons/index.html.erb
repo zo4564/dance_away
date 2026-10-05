@@ -5,11 +5,14 @@
               new_admin_lesson_path,
               class: "btn btn-primary" %>
 
+  <%= link_to "Użytkownicy",
+              admin_users_path,
+              class: "btn btn-outline-secondary ms-2" %>
 </div>
 
 <% if @lessons.any? %>
   <div class="table-responsive">
-    <table class="table table-striped align-middle">
+    <table class="table align-middle">
       <thead>
       <tr>
         <th>Data i godzina</th>
@@ -41,7 +44,13 @@
               application.status.in?(%w[pending accepted])
             end %>
 
-            <% if applications.any? %>
+            <% if lesson.teacher.present? %>
+              <span>
+                <%= lesson.teacher.first_name %>
+                <%= lesson.teacher.last_name %>
+              </span>
+
+            <% elsif applications.any? %>
               <%= form_with model: [:admin, lesson],
                             url: change_teacher_admin_lesson_path(lesson),
                             method: :patch,
@@ -54,8 +63,7 @@
                                              "#{teacher.first_name} #{teacher.last_name}"
                                            },
                                            {
-                                             prompt: "Wybierz prowadzącego",
-                                             selected: lesson.teacher_id
+                                             prompt: "Wybierz prowadzącego"
                                            },
                                            {
                                              class: "form-select form-select-sm"
@@ -64,12 +72,6 @@
                 <%= form.submit "Zapisz",
                                 class: "btn btn-sm btn-outline-success" %>
               <% end %>
-
-            <% elsif lesson.teacher.present? %>
-              <span>
-                <%= lesson.teacher.first_name %>
-                <%= lesson.teacher.last_name %>
-              </span>
 
             <% else %>
               <span class="text-muted">

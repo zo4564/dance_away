@@ -13,7 +13,7 @@ class CreateUserRoles < ActiveRecord::Migration[7.2]
     end
 
     add_index :user_roles,
-              [:user_id, :role_id],
+              [ :user_id, :role_id ],
               unique: true
   end
 end

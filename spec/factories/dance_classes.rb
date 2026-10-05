@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 FactoryBot.define do
   factory :dance_class do
     sequence(:name) { |n| "Salsa Beginners #{n}" }

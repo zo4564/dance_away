@@ -17,7 +17,7 @@ class CreateTeacherApplications < ActiveRecord::Migration[7.2]
     end
 
     add_index :teacher_applications,
-              [:teacher_id, :lesson_id],
+              [ :teacher_id, :lesson_id ],
               unique: true
 
     add_check_constraint :teacher_applications,

@@ -1,0 +1,92 @@
+<div class="container py-4">
+  <div class="d-flex justify-content-between align-items-center mb-4">
+    <div>
+      <h1>Użytkownicy</h1>
+      <p class="text-muted mb-0">
+        Zarządzanie użytkownikami i ich rolami.
+      </p>
+    </div>
+
+    <%= link_to "Dodaj użytkownika",
+                new_admin_user_path,
+                class: "btn btn-primary" %>
+  </div>
+
+  <div class="mb-4">
+    <div class="btn-group" role="group">
+      <%= link_to "Wszyscy",
+                  admin_users_path,
+                  class: "btn #{params[:role].blank? ? 'btn-primary' : 'btn-outline-primary'}" %>
+
+      <% @roles.each do |role| %>
+        <%= link_to role.name.capitalize,
+                    admin_users_path(role: role.name),
+                    class: "btn #{params[:role] == role.name ? 'btn-primary' : 'btn-outline-primary'}" %>
+      <% end %>
+    </div>
+  </div>
+
+  <% if @users.any? %>
+    <div class="table-responsive">
+      <table class="table table-striped align-middle">
+        <thead>
+        <tr>
+          <th>Imię</th>
+          <th>Nazwisko</th>
+          <th>Email</th>
+          <th>Role</th>
+          <th>Akcje</th>
+        </tr>
+        </thead>
+
+        <tbody>
+        <% @users.each do |user| %>
+          <tr>
+            <td>
+              <%= user.first_name %>
+            </td>
+
+            <td>
+              <%= user.last_name %>
+            </td>
+
+            <td>
+              <%= user.email %>
+            </td>
+
+            <td>
+              <% user.roles.each do |role| %>
+                <span class="badge text-bg-secondary me-1">
+                  <%= role.name %>
+                </span>
+              <% end %>
+            </td>
+
+            <td>
+              <div class="d-flex flex-wrap gap-2">
+                <%= link_to "Edytuj",
+                            edit_admin_user_path(user),
+                            class: "btn btn-sm btn-outline-secondary" %>
+
+                <% unless user == current_user %>
+                  <%= button_to "Usuń",
+                                admin_user_path(user),
+                                method: :delete,
+                                class: "btn btn-sm btn-outline-danger",
+                                data: {
+                                  turbo_confirm: "Czy na pewno chcesz usunąć tego użytkownika?"
+                                } %>
+                <% end %>
+              </div>
+            </td>
+          </tr>
+        <% end %>
+        </tbody>
+      </table>
+    </div>
+  <% else %>
+    <div class="alert alert-info">
+      Brak użytkowników spełniających wybrane kryteria.
+    </div>
+  <% end %>
+</div>
