@@ -59,7 +59,7 @@
                 <%= @lesson.teacher.last_name %>
               <% else %>
                 <span class="text-muted">
-                  Brak przypisanego prowadzącego
+                  <%= t("lessons.show.no_teacher") %>
                 </span>
               <% end %>
             </dd>
@@ -99,44 +99,46 @@
 
           <% if user_signed_in? %>
             <% if current_user.teacher? && @lesson.teacher.nil? %>
-              <hr>
-
               <% if @lesson.teacher_applied?(current_user) %>
                 <div class="alert alert-info">
-                  Twoje zgłoszenie do prowadzenia tych zajęć oczekuje na akceptację administratora.
+                  <%= t("lessons.show.teacher_application_pending") %>
                 </div>
-              <% else %>
-                <%= button_to "Zgłoś się jako prowadzący",
+              <% end %>
+            <% end %>
+
+            <div class="d-flex gap-2 flex-wrap">
+              <% if current_user.teacher? &&
+                    @lesson.teacher.nil? &&
+                    !@lesson.teacher_applied?(current_user) %>
+                <%= button_to t("lessons.show.apply_as_teacher"),
                               lesson_teacher_applications_path(@lesson),
                               method: :post,
                               class: "btn btn-outline-primary" %>
               <% end %>
-            <% end %>
 
-            <% if @lesson.booked_by?(current_user) %>
-              <div class="alert alert-success">
-                <%= t("lessons.show.booked_message") %>
-              </div>
+              <% if @lesson.booked_by?(current_user) %>
+                <%= button_to t("lessons.show.cancel_booking"),
+                              lesson_booking_path(@lesson),
+                              method: :delete,
+                              class: "btn btn-outline-danger",
+                              data: {
+                                turbo_confirm: t(
+                                  "lessons.show.cancel_booking_confirmation"
+                                )
+                              } %>
 
-              <%= button_to t("lessons.show.cancel_booking"),
-                            lesson_booking_path(@lesson),
-                            method: :delete,
-                            class: "btn btn-outline-danger",
-                            data: {
-                              turbo_confirm: t("lessons.show.cancel_booking_confirmation")
-                            } %>
+              <% elsif @lesson.available_places > 0 %>
+                <%= button_to t("lessons.show.book"),
+                              lesson_bookings_path(@lesson),
+                              method: :post,
+                              class: "btn btn-primary" %>
 
-            <% elsif @lesson.available_places > 0 %>
-              <%= button_to t("lessons.show.book"),
-                            lesson_bookings_path(@lesson),
-                            method: :post,
-                            class: "btn btn-primary" %>
-
-            <% else %>
-              <div class="alert alert-warning">
-                <%= t("lessons.show.no_places") %>
-              </div>
-            <% end %>
+              <% else %>
+                <div class="alert alert-warning mb-0">
+                  <%= t("lessons.show.no_places") %>
+                </div>
+              <% end %>
+            </div>
 
           <% else %>
             <%= link_to t("lessons.show.sign_in_to_book"),

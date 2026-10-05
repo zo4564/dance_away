@@ -1,125 +1,148 @@
-<h1>Panel administracyjny — zajęcia</h1>
+<div class="container py-4">
+  <div class="d-flex justify-content-between align-items-center mb-4">
+    <h1><%= t("admin.lessons.index.title") %></h1>
+  </div>
 
-<div class="mb-3">
-  <%= link_to "Utwórz nowe zajęcia",
-              new_admin_lesson_path,
-              class: "btn btn-primary" %>
+  <div class="mb-3">
+    <%= link_to t("admin.lessons.index.new_lesson"),
+                new_admin_lesson_path,
+                class: "btn btn-primary" %>
 
-  <%= link_to "Użytkownicy",
-              admin_users_path,
-              class: "btn btn-outline-secondary ms-2" %>
-</div>
+    <%= link_to t("admin.lessons.index.users"),
+                admin_users_path,
+                class: "btn btn-outline-secondary ms-2" %>
+  </div>
 
-<% if @lessons.any? %>
-  <div class="table-responsive">
-    <table class="table align-middle">
-      <thead>
-      <tr>
-        <th>Data i godzina</th>
-        <th>Zajęcia</th>
-        <th>Styl</th>
-        <th>Prowadzący</th>
-        <th>Miejsca</th>
-        <th>Akcje</th>
-      </tr>
-      </thead>
-
-      <tbody>
-      <% @lessons.each do |lesson| %>
+  <% if @lessons.any? %>
+    <div class="table-responsive">
+      <table class="table align-middle">
+        <thead>
         <tr>
-          <td>
-            <%= l(lesson.starts_at, format: :long) %>
-          </td>
+          <th><%= t("admin.lessons.index.date") %></th>
+          <th><%= t("admin.lessons.index.lesson") %></th>
+          <th><%= t("admin.lessons.index.style") %></th>
+          <th><%= t("admin.lessons.index.teacher") %></th>
+          <th><%= t("admin.lessons.index.places") %></th>
+          <th><%= t("admin.lessons.index.actions") %></th>
+        </tr>
+        </thead>
 
-          <td>
-            <%= lesson.dance_class.name %>
-          </td>
+        <tbody>
+        <% @lessons.each do |lesson| %>
+          <tr>
+            <td>
+              <%= l(lesson.starts_at, format: :long) %>
+            </td>
 
-          <td>
-            <%= lesson.dance_class.dance_style.name %>
-          </td>
+            <td>
+              <%= lesson.dance_class.name %>
+            </td>
 
-          <td>
-            <% applications = lesson.teacher_applications.select do |application|
-              application.status.in?(%w[pending accepted])
-            end %>
+            <td>
+              <%= lesson.dance_class.dance_style.name %>
+            </td>
 
-            <% if lesson.teacher.present? %>
-              <span>
-                <%= lesson.teacher.first_name %>
-                <%= lesson.teacher.last_name %>
-              </span>
+            <td>
+              <% applications = lesson.teacher_applications %>
 
-            <% elsif applications.any? %>
-              <%= form_with model: [:admin, lesson],
-                            url: change_teacher_admin_lesson_path(lesson),
-                            method: :patch,
-                            class: "d-flex gap-1" do |form| %>
+              <% if lesson.teacher.present? %>
+                <div class="d-grid w-100"
+                     style="grid-template-columns: minmax(0, 1fr) auto;">
+                  <span>
+                    <%= lesson.teacher.first_name %>
+                    <%= lesson.teacher.last_name %>
+                  </span>
 
-                <%= form.collection_select :teacher_id,
-                                           applications.map(&:teacher),
-                                           :id,
-                                           ->(teacher) {
-                                             "#{teacher.first_name} #{teacher.last_name}"
-                                           },
-                                           {
-                                             prompt: "Wybierz prowadzącego"
-                                           },
-                                           {
-                                             class: "form-select form-select-sm"
-                                           } %>
+                  <%= button_to remove_teacher_admin_lesson_path(lesson),
+                                method: :patch,
+                                class: "btn btn-sm btn-outline-danger px-2 py-0 ms-2",
+                                title: t("admin.lessons.index.remove_teacher"),
+                                aria: {
+                                  label: t("admin.lessons.index.remove_teacher")
+                                },
+                                data: {
+                                  turbo_confirm: t(
+                                    "admin.lessons.index.remove_teacher_confirmation"
+                                  )
+                                } do %>
+                    &times;
+                  <% end %>
+                </div>
 
-                <%= form.submit "Zapisz",
-                                class: "btn btn-sm btn-outline-success" %>
+              <% elsif applications.any? %>
+                <%= form_with model: [:admin, lesson],
+                              url: change_teacher_admin_lesson_path(lesson),
+                              method: :patch,
+                              class: "d-flex gap-1" do |form| %>
+
+                  <%= form.collection_select :teacher_id,
+                                             applications.map(&:teacher),
+                                             :id,
+                                             ->(teacher) {
+                                               "#{teacher.first_name} #{teacher.last_name}"
+                                             },
+                                             {
+                                               prompt: t("admin.lessons.index.select_teacher")
+                                             },
+                                             {
+                                               class: "form-select form-select-sm"
+                                             } %>
+
+                  <%= form.submit t("admin.lessons.index.save"),
+                                  class: "btn btn-sm btn-outline-success" %>
+                <% end %>
+
+              <% else %>
+                <span class="text-muted">
+                  <%= t("admin.lessons.index.no_teacher") %>
+                </span>
               <% end %>
 
-            <% else %>
-              <span class="text-muted">
-                Brak prowadzącego
-              </span>
-            <% end %>
+              <% applications_count = lesson.teacher_applications.count %>
 
-            <% applications_count = lesson.teacher_applications.count %>
+              <% if applications_count > 0 %>
+                <div class="mt-1">
+                  <small class="text-muted">
+                    <%= t("admin.lessons.index.applications",
+                          count: applications_count) %>
+                  </small>
+                </div>
+              <% end %>
+            </td>
 
-            <% if applications_count > 0 %>
-              <div class="mt-1">
-                <small class="text-muted">
-                  Zgłoszenia: <%= applications_count %>
-                </small>
+            <td>
+              <%= lesson.booked_places %> / <%= lesson.capacity %>
+            </td>
+
+            <td>
+              <div class="d-flex flex-wrap gap-2">
+                <%= link_to t("admin.lessons.index.participants"),
+                            participants_admin_lesson_path(lesson),
+                            class: "btn btn-sm btn-outline-primary" %>
+
+                <%= link_to t("admin.lessons.index.edit"),
+                            edit_admin_lesson_path(lesson),
+                            class: "btn btn-sm btn-outline-secondary" %>
+
+                <%= button_to t("admin.lessons.index.delete"),
+                              admin_lesson_path(lesson),
+                              method: :delete,
+                              class: "btn btn-sm btn-outline-danger",
+                              data: {
+                                turbo_confirm: t(
+                                  "admin.lessons.index.delete_confirmation"
+                                )
+                              } %>
               </div>
-            <% end %>
-          </td>
-
-          <td>
-            <%= lesson.booked_places %> / <%= lesson.capacity %>
-          </td>
-
-          <td>
-            <div class="d-flex flex-wrap gap-2">
-              <%= link_to "Uczestnicy",
-                          participants_admin_lesson_path(lesson),
-                          class: "btn btn-sm btn-outline-primary" %>
-
-              <%= link_to "Edytuj",
-                          edit_admin_lesson_path(lesson),
-                          class: "btn btn-sm btn-outline-secondary" %>
-
-              <%= button_to "Usuń",
-                            admin_lesson_path(lesson),
-                            method: :delete,
-                            class: "btn btn-sm btn-outline-danger",
-                            data: {
-                              turbo_confirm: "Czy na pewno chcesz usunąć te zajęcia?"
-                            } %>
-            </div>
-          </td>
-        </tr>
-      <% end %>
-      </tbody>
-    </table>
-  </div>
-<% else %>
-  <div class="alert alert-info">
-    Brak utworzonych zajęć.
-  </div>
-<% end %>
+            </td>
+          </tr>
+        <% end %>
+        </tbody>
+      </table>
+    </div>
+  <% else %>
+    <div class="alert alert-info">
+      <%= t("admin.lessons.index.empty") %>
+    </div>
+  <% end %>
+</div>

@@ -1,15 +1,15 @@
 <div class="container py-4">
   <div class="mb-4">
-    <h1>Moje zgłoszenia</h1>
+    <h1><%= t("teacher_applications.index.title") %></h1>
     <p class="text-muted">
-      Lista zgłoszeń do prowadzenia zajęć i ich aktualny status.
+      <%= t("teacher_applications.index.description") %>
     </p>
   </div>
 
   <% if @applications.any? %>
     <div class="row g-4">
       <% @applications.each do |application| %>
-        <div class="col-12 col-lg-6">
+        <div class="col-12 col-lg-3">
           <div class="card shadow-sm h-100">
             <div class="card-body">
 
@@ -22,34 +22,34 @@
               </p>
 
               <p>
-                <strong>Data i godzina:</strong><br>
+                <strong><%= t("teacher_applications.index.date") %>:</strong><br>
                 <%= l(application.lesson.starts_at, format: :long) %>
                 —
                 <%= application.lesson.starts_at.strftime("%H:%M") %>
               </p>
 
               <p>
-                <strong>Status:</strong><br>
+                <strong><%= t("teacher_applications.index.status") %>:</strong><br>
 
                 <% case application.status %>
                 <% when "pending" %>
                   <span class="badge text-bg-warning">
-                    Oczekujące
+                    <%= t("teacher_applications.index.statuses.pending") %>
                   </span>
 
                 <% when "accepted" %>
                   <span class="badge text-bg-success">
-                    Zaakceptowane
+                    <%= t("teacher_applications.index.statuses.accepted") %>
                   </span>
 
                 <% when "rejected" %>
                   <span class="badge text-bg-danger">
-                    Odrzucone
+                    <%= t("teacher_applications.index.statuses.rejected") %>
                   </span>
                 <% end %>
               </p>
 
-              <%= link_to "Zobacz zajęcia",
+              <%= link_to t("teacher_applications.index.show_lesson"),
                           lesson_path(application.lesson),
                           class: "btn btn-sm btn-outline-primary" %>
 
@@ -60,7 +60,7 @@
     </div>
   <% else %>
     <div class="alert alert-info">
-      Nie masz jeszcze żadnych zgłoszeń.
+      <%= t("teacher_applications.index.empty") %>
     </div>
   <% end %>
 </div>

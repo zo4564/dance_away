@@ -1,8 +1,9 @@
 <div class="container py-4">
   <div class="mb-4">
-    <h1>Zgłoszenia nauczycieli</h1>
+    <h1><%= t("admin.teacher_applications.index.title") %></h1>
+
     <p class="text-muted">
-      Nauczyciele oczekujący na przypisanie do zajęć.
+      <%= t("admin.teacher_applications.index.subtitle") %>
     </p>
   </div>
 
@@ -18,25 +19,23 @@
 
               <p class="text-muted">
                 <%= l(application.lesson.starts_at, format: :long) %>
-                —
-                <%= application.lesson.starts_at.strftime("%H:%M") %>
               </p>
 
               <hr>
 
               <p>
-                <strong>Nauczyciel:</strong><br>
+                <strong><%= t("admin.teacher_applications.index.teacher") %>:</strong><br>
                 <%= application.teacher.first_name %>
                 <%= application.teacher.last_name %>
               </p>
 
               <div class="d-flex gap-2">
-                <%= button_to "Zaakceptuj",
+                <%= button_to t("admin.teacher_applications.index.accept"),
                               accept_admin_teacher_application_path(application),
                               method: :patch,
                               class: "btn btn-success" %>
 
-                <%= button_to "Odrzuć",
+                <%= button_to t("admin.teacher_applications.index.reject"),
                               reject_admin_teacher_application_path(application),
                               method: :patch,
                               class: "btn btn-outline-danger" %>
@@ -48,7 +47,7 @@
     </div>
   <% else %>
     <div class="alert alert-info">
-      Brak oczekujących zgłoszeń.
+      <%= t("admin.teacher_applications.index.empty") %>
     </div>
   <% end %>
 </div>

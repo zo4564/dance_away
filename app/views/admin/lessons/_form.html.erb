@@ -11,20 +11,24 @@
 
   <div class="mb-3">
     <%= form.label :dance_class_id,
-                   "Zajęcia",
+                   t("admin.lessons.form.dance_class"),
                    class: "form-label" %>
 
     <%= form.collection_select :dance_class_id,
                                dance_classes,
                                :id,
                                :name,
-                               { prompt: "Wybierz zajęcia" },
-                               { class: "form-select" } %>
+                               {
+                                 prompt: t("admin.lessons.form.select_dance_class")
+                               },
+                               {
+                                 class: "form-select"
+                               } %>
   </div>
 
   <div class="mb-3">
     <%= form.label :teacher_id,
-                   "Prowadzący",
+                   t("admin.lessons.form.teacher"),
                    class: "form-label" %>
 
     <%= form.collection_select :teacher_id,
@@ -33,13 +37,17 @@
                                ->(teacher) {
                                  "#{teacher.first_name} #{teacher.last_name}"
                                },
-                               { include_blank: "Brak prowadzącego" },
-                               { class: "form-select" } %>
+                               {
+                                 include_blank: t("admin.lessons.form.no_teacher")
+                               },
+                               {
+                                 class: "form-select"
+                               } %>
   </div>
 
   <div class="mb-3">
     <%= form.label :starts_at,
-                   "Data i godzina",
+                   t("admin.lessons.form.starts_at"),
                    class: "form-label" %>
 
     <%= form.datetime_local_field :starts_at,
@@ -48,7 +56,7 @@
 
   <div class="mb-3">
     <%= form.label :capacity,
-                   "Liczba miejsc",
+                   t("admin.lessons.form.capacity"),
                    class: "form-label" %>
 
     <%= form.number_field :capacity,
@@ -57,7 +65,9 @@
   </div>
 
   <%= form.submit(
-        lesson.persisted? ? "Zapisz zmiany" : "Utwórz zajęcia",
+        lesson.persisted? ?
+          t("admin.lessons.form.update") :
+          t("admin.lessons.form.create"),
         class: "btn btn-primary"
       ) %>
 <% end %>

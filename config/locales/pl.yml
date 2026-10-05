@@ -14,6 +14,8 @@ pl:
     sign_up: "Rejestracja"
     sign_out: "Wyloguj"
     toggle: "Przełącz nawigację"
+    admin_panel: "Panel administracyjny"
+    my_teacher_applications: "Moje zgłoszenia"
 
   home:
     index:
@@ -75,6 +77,7 @@ pl:
       places: "Miejsca"
       available_places: "wolnych"
       details: "Szczegóły"
+      unassigned: "Pokaż nieprzypisane grupy"
 
     shared:
       teacher: "Nauczyciel"
@@ -101,6 +104,9 @@ pl:
       no_places: "Brak wolnych miejsc."
       sign_in_to_book: "Zaloguj się, aby zarezerwować miejsce"
       back: "Wróć do listy zajęć"
+      no_teacher: "Brak przypisanego prowadzącego"
+      apply_as_teacher: "Zgłoś się jako prowadzący"
+      teacher_application_pending: "Twoje zgłoszenie do prowadzenia tych zajęć oczekuje na akceptację administratora."
 
   bookings:
     create:
@@ -161,6 +167,121 @@ pl:
       precision: 3
       significant: false
       strip_insignificant_zeros: true
+
+  roles:
+    names:
+      student: "Uczeń"
+      teacher: "Nauczyciel"
+      admin: "Administrator"
+
+  teacher_applications:
+    index:
+      title: "Moje zgłoszenia"
+      description: "Lista zgłoszeń do prowadzenia zajęć i ich aktualny status."
+      date: "Data i godzina"
+      status: "Status"
+      show_lesson: "Zobacz zajęcia"
+      empty: "Nie masz jeszcze żadnych zgłoszeń."
+      statuses:
+        pending: "Oczekujące"
+        accepted: "Zaakceptowane"
+        rejected: "Odrzucone"
+
+  admin:
+    lessons:
+      index:
+        title: "Panel administracyjny — zajęcia"
+        new_lesson: "Utwórz nowe zajęcia"
+        users: "Użytkownicy"
+        date: "Data i godzina"
+        lesson: "Zajęcia"
+        style: "Styl"
+        teacher: "Prowadzący"
+        places: "Miejsca"
+        actions: "Akcje"
+        select_teacher: "Wybierz prowadzącego"
+        save: "Zapisz"
+        no_teacher: "Brak prowadzącego"
+        remove_teacher: "Usuń prowadzącego"
+        remove_teacher_confirmation: "Czy na pewno chcesz usunąć prowadzącego z tych zajęć?"
+        applications:
+          one: "Zgłoszenie: %{count}"
+          few: "Zgłoszenia: %{count}"
+          many: "Zgłoszeń: %{count}"
+          other: "Zgłoszeń: %{count}"
+        participants: "Uczestnicy"
+        edit: "Edytuj"
+        delete: "Usuń"
+        delete_confirmation: "Czy na pewno chcesz usunąć te zajęcia?"
+        empty: "Brak utworzonych zajęć."
+
+      form:
+        dance_class: "Zajęcia"
+        select_dance_class: "Wybierz zajęcia"
+        teacher: "Prowadzący"
+        no_teacher: "Brak prowadzącego"
+        starts_at: "Data i godzina"
+        capacity: "Liczba miejsc"
+        create: "Utwórz zajęcia"
+        update: "Zapisz zmiany"
+
+      new:
+        title: "Dodaj zajęcia"
+        subtitle: "Utwórz nowe zajęcia."
+
+      edit:
+        title: "Edytuj zajęcia"
+
+      participants:
+        title: "Lista uczestników"
+        back: "Powrót do zajęć"
+        participants: "Uczestnicy"
+        name: "Imię i nazwisko"
+        email: "Email"
+        booking_date: "Data zapisu"
+        empty: "Nikt nie zapisał się jeszcze na te zajęcia."
+
+    teacher_applications:
+      index:
+        title: "Zgłoszenia nauczycieli"
+        subtitle: "Nauczyciele oczekujący na przypisanie do zajęć."
+        teacher: "Nauczyciel"
+        accept: "Zaakceptuj"
+        reject: "Odrzuć"
+        empty: "Brak oczekujących zgłoszeń."
+
+    users:
+      index:
+        title: "Użytkownicy"
+        subtitle: "Zarządzanie użytkownikami i ich rolami."
+        new_user: "Dodaj użytkownika"
+        all: "Wszyscy"
+        first_name: "Imię"
+        last_name: "Nazwisko"
+        email: "Email"
+        roles: "Role"
+        actions: "Akcje"
+        edit: "Edytuj"
+        delete: "Usuń"
+        delete_confirmation: "Czy na pewno chcesz usunąć tego użytkownika?"
+        empty: "Brak użytkowników spełniających wybrane kryteria."
+
+      form:
+        first_name: "Imię"
+        last_name: "Nazwisko"
+        email: "Email"
+        password: "Hasło"
+        password_confirmation: "Potwierdzenie hasła"
+        password_hint: "Pozostaw puste, jeśli hasło nie ma być zmieniane."
+        roles: "Role"
+        create: "Utwórz użytkownika"
+        update: "Zapisz zmiany"
+
+      new:
+        title: "Dodaj użytkownika"
+
+      edit:
+        title: "Edytuj użytkownika"
 
   activerecord:
     models:

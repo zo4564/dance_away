@@ -8,6 +8,10 @@ class LessonsController < ApplicationController
                  .includes(:teacher, dance_class: :dance_style)
                  .order(:starts_at)
 
+    if params[:unassigned] == "true"
+      @lessons = @lessons.where(teacher_id: nil)
+    end
+
     prepare_calendar(@lessons)
   end
 

@@ -43,6 +43,7 @@ Rails.application.routes.draw do
       member do
         get :participants
         patch :change_teacher
+        patch :remove_teacher
       end
     end
 

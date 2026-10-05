@@ -7,6 +7,7 @@ class Admin::LessonsController < ApplicationController
     destroy
     participants
     change_teacher
+    remove_teacher
   ]
 
   def index
@@ -69,7 +70,6 @@ class Admin::LessonsController < ApplicationController
     teacher_id = params.dig(:lesson, :teacher_id)
 
     application = @lesson.teacher_applications
-                         .where(status: %w[pending accepted])
                          .find_by(teacher_id: teacher_id)
 
     unless application
@@ -90,6 +90,16 @@ class Admin::LessonsController < ApplicationController
 
     redirect_to admin_lessons_path,
                 notice: "Prowadzący został zmieniony."
+  rescue ActiveRecord::RecordInvalid => e
+    redirect_to admin_lessons_path,
+                alert: e.record.errors.full_messages.to_sentence
+  end
+
+  def remove_teacher
+    @lesson.update!(teacher: nil)
+
+    redirect_to admin_lessons_path,
+                notice: "Prowadzący został usunięty."
   rescue ActiveRecord::RecordInvalid => e
     redirect_to admin_lessons_path,
                 alert: e.record.errors.full_messages.to_sentence

@@ -11,7 +11,7 @@
 
   <div class="mb-3">
     <%= form.label :first_name,
-                   "Imię",
+                   t("admin.users.form.first_name"),
                    class: "form-label" %>
 
     <%= form.text_field :first_name,
@@ -20,7 +20,7 @@
 
   <div class="mb-3">
     <%= form.label :last_name,
-                   "Nazwisko",
+                   t("admin.users.form.last_name"),
                    class: "form-label" %>
 
     <%= form.text_field :last_name,
@@ -29,7 +29,7 @@
 
   <div class="mb-3">
     <%= form.label :email,
-                   "Email",
+                   t("admin.users.form.email"),
                    class: "form-label" %>
 
     <%= form.email_field :email,
@@ -38,7 +38,7 @@
 
   <div class="mb-3">
     <%= form.label :password,
-                   "Hasło",
+                   t("admin.users.form.password"),
                    class: "form-label" %>
 
     <%= form.password_field :password,
@@ -46,14 +46,14 @@
 
     <% if user.persisted? %>
       <div class="form-text">
-        Pozostaw puste, jeśli hasło nie ma być zmieniane.
+        <%= t("admin.users.form.password_hint") %>
       </div>
     <% end %>
   </div>
 
   <div class="mb-3">
     <%= form.label :password_confirmation,
-                   "Potwierdzenie hasła",
+                   t("admin.users.form.password_confirmation"),
                    class: "form-label" %>
 
     <%= form.password_field :password_confirmation,
@@ -62,7 +62,7 @@
 
   <div class="mb-3">
     <%= form.label :role_ids,
-                   "Role",
+                   t("admin.users.form.roles"),
                    class: "form-label" %>
 
     <% roles.each do |role| %>
@@ -76,14 +76,16 @@
                            nil %>
 
         <%= form.label "role_ids_#{role.id}",
-                       role.name.capitalize,
+                       t("roles.names.#{role.name}", default: role.name.humanize),
                        class: "form-check-label" %>
       </div>
     <% end %>
   </div>
 
   <%= form.submit(
-        user.persisted? ? "Zapisz zmiany" : "Utwórz użytkownika",
+        user.persisted? ?
+          t("admin.users.form.update") :
+          t("admin.users.form.create"),
         class: "btn btn-primary"
       ) %>
 <% end %>

@@ -1,3 +1,27 @@
+<div class="d-flex justify-content-between align-items-center mb-4">
+  <%= link_to t("lessons.shared.previous_week"),
+              url_for(week: (@week_start - 7.days).to_date, view: "calendar"),
+              class: "btn btn-outline-primary" %>
+
+  <div class="text-center">
+    <div class="fw-semibold">
+      <%= l(@week_start, format: :short) %>
+      –
+      <%= l(@week_start + 6.days, format: :short) %>
+    </div>
+
+    <% if @week_start != Date.current.beginning_of_week %>
+      <%= link_to t("lessons.shared.current_week"),
+                  url_for(week: Date.current, view: "calendar"),
+                  class: "btn btn-sm btn-outline-secondary mt-1" %>
+    <% end %>
+  </div>
+
+  <%= link_to t("lessons.shared.next_week"),
+              url_for(week: (@week_start + 7.days).to_date, view: "calendar"),
+              class: "btn btn-outline-primary" %>
+</div>
+
 <div class="row g-3">
   <% week_days.each do |day| %>
     <div class="col-12 col-md">

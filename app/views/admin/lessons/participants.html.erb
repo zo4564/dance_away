@@ -1,16 +1,15 @@
 <div class="container py-4">
   <div class="mb-4">
-    <%= link_to "← Powrót do zajęć",
+    <%= link_to t("admin.lessons.participants.back"),
                 admin_lessons_path,
                 class: "btn btn-outline-secondary mb-3" %>
 
-    <h1>Lista uczestników</h1>
+    <h1><%= t("admin.lessons.participants.title") %></h1>
 
     <p class="text-muted">
       <strong><%= @lesson.dance_class.name %></strong>
       —
-      <%= l(@lesson.starts_at, format: :long) %>,
-      <%= @lesson.starts_at.strftime("%H:%M") %>
+      <%= l(@lesson.starts_at, format: :long) %>
     </p>
   </div>
 
@@ -18,7 +17,7 @@
     <div class="card-body">
       <div class="mb-3">
         <strong>
-          Uczestnicy:
+          <%= t("admin.lessons.participants.participants") %>:
         </strong>
 
         <%= @lesson.booked_places %>
@@ -32,9 +31,9 @@
             <thead>
             <tr>
               <th>#</th>
-              <th>Imię i nazwisko</th>
-              <th>Email</th>
-              <th>Data zapisu</th>
+              <th><%= t("admin.lessons.participants.name") %></th>
+              <th><%= t("admin.lessons.participants.email") %></th>
+              <th><%= t("admin.lessons.participants.booking_date") %></th>
             </tr>
             </thead>
 
@@ -62,7 +61,7 @@
         </div>
       <% else %>
         <p class="text-muted mb-0">
-          Nikt nie zapisał się jeszcze na te zajęcia.
+          <%= t("admin.lessons.participants.empty") %>
         </p>
       <% end %>
     </div>
