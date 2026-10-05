@@ -165,4 +165,29 @@ The seed data creates example users, roles, dance classes, lessons and bookings.
 
 > Demo credentials are intended for local development only and must not be used as real production credentials.
 
+## Screenshots - demo
 
+### Landing page
+
+
+### Admin panel - lessons
+
+
+### Admin panel - users list
+
+
+### Lessons list for teachers
+
+
+### Lessons calendar for teachers
+
+
+### Teacher applications
+
+
+### Dance styles
+
+
+
+## Credits
+<a href="https://www.flaticon.com/free-icons/woman" title="woman icons">Woman icons created by Magnific - Flaticon</a>
