@@ -84,7 +84,7 @@ GEM
     bindex (0.8.1)
     bootsnap (1.26.0)
       msgpack (~> 1.5)
-    brakeman (8.1.0)
+    brakeman (8.0.6)
       racc
     builder (3.3.0)
     capybara (3.40.0)
@@ -161,7 +161,7 @@ GEM
       net-protocol
     net-protocol (0.4.0)
       timeout
-    net-smtp (0.5.2)
+    net-smtp (0.5.1)
       net-protocol
     nio4r (2.7.5)
     nokogiri (1.19.4-x64-mingw-ucrt)
@@ -228,7 +228,7 @@ GEM
       logger
       prism (>= 1.6.0)
       tsort
-    rdoc (8.1.0)
+    rdoc (8.0.0)
       erb
       prism (>= 1.6.0)
       rbs (>= 4.0.0)
